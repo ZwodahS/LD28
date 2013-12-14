@@ -25,16 +25,19 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
-struct TextureRegion
+namespace zf
 {
-    sf::Texture* texture;
-    sf::IntRect srcClip;
-    sf::Color defaultColor;
-    float defaultScaleX;
-    float defaultScaleY;
-    TextureRegion(sf::Texture* t, sf::IntRect srcClip, sf::Color defaultColor = sf::Color::White);
-    TextureRegion();
-    
-    sf::Sprite createSprite();
-};
+    struct TextureRegion
+    {
+        sf::Texture* texture;
+        sf::IntRect srcClip;
+        sf::Color defaultColor;
+        float defaultScaleX;
+        float defaultScaleY;
+        TextureRegion(sf::Texture* t, sf::IntRect srcClip, sf::Color defaultColor = sf::Color::White);
+        TextureRegion();
+        
+        sf::Sprite createSprite();
+    };
+}
 #endif

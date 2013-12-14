@@ -1,12 +1,12 @@
 #include "Game.hpp"
 #include "screens/Screen.hpp"
+#include "screens/GameScreen.hpp"
 #include <SFML/Graphics.hpp>
 
 #define CLEAR_COLOR sf::Color(20,20,20,255)
-#define GAME_TITLE "Game Name"
-#define GAME_WIDTH 1280
+#define GAME_TITLE "Pixel Factory"
+#define GAME_WIDTH 960
 #define GAME_HEIGHT 960
-
 Game::Game()
     :width(GAME_WIDTH), height(GAME_HEIGHT), title(GAME_TITLE),
     window(sf::VideoMode(width,height),title),mouse(), isFocused(true)
@@ -22,7 +22,7 @@ void Game::run()
 {
     loadAssets();
     sf::Clock clock; // set up the clock for delta
-
+    _currentScreen = new GameScreen(*this);
     bool quit = false;
     // Default Generator
     while(!quit && window.isOpen())

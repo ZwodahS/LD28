@@ -22,131 +22,134 @@
  */
 #include "SpriteSheet.hpp"
 #include <iostream>
-SpriteSheet::SpriteSheet()
-    : _texture(0), _bound(0, 0, 0, 0), _managed(false), _spriteSize(0, 0, 0, 0), _currRow(0), _currCol(0), _maxRow(0), _maxCol(0)
+namespace zf
 {
-}
+    SpriteSheet::SpriteSheet()
+        : _texture(0), _bound(0, 0, 0, 0), _managed(false), _spriteSize(0, 0, 0, 0), _currRow(0), _currCol(0), _maxRow(0), _maxCol(0)
+    {
+    }
 
-SpriteSheet::SpriteSheet(sf::Texture* texture, sf::IntRect bound)
-    : _texture(texture), _bound(bound), _managed(false), _spriteSize(0, 0, 0, 0), _currRow(0), _currCol(0), _maxRow(0), _maxCol(0)
-{
-}
+    SpriteSheet::SpriteSheet(sf::Texture* texture, sf::IntRect bound)
+        : _texture(texture), _bound(bound), _managed(false), _spriteSize(0, 0, 0, 0), _currRow(0), _currCol(0), _maxRow(0), _maxCol(0)
+    {
+    }
 
-SpriteSheet::SpriteSheet(sf::Texture* texture, sf::IntRect bound, sf::IntRect spriteSize, int row, int col)
-    : _texture(texture), _bound(bound), _managed(true), _spriteSize(spriteSize), _currRow(0), _currCol(0), _maxRow(row), _maxCol(col)
-{
-}
+    SpriteSheet::SpriteSheet(sf::Texture* texture, sf::IntRect bound, sf::IntRect spriteSize, int row, int col)
+        : _texture(texture), _bound(bound), _managed(true), _spriteSize(spriteSize), _currRow(0), _currCol(0), _maxRow(row), _maxCol(col)
+    {
+    }
 
-void SpriteSheet::create(sf::Texture* texture, sf::IntRect bound)
-{
-    _managed = false;
-    _currRow = 0;
-    _currCol = 0;
-    _maxRow = 0;
-    _maxCol = 0;
-    _texture = texture;
-    _bound = bound;
-    _spriteSize = sf::IntRect(0,0,0,0);
-}
+    void SpriteSheet::create(sf::Texture* texture, sf::IntRect bound)
+    {
+        _managed = false;
+        _currRow = 0;
+        _currCol = 0;
+        _maxRow = 0;
+        _maxCol = 0;
+        _texture = texture;
+        _bound = bound;
+        _spriteSize = sf::IntRect(0,0,0,0);
+    }
 
-void SpriteSheet::create(sf::Texture* texture, sf::IntRect bound, sf::IntRect spriteSize, int row, int col)
-{
-    _managed = true;
-    _currRow = 0;
-    _currCol = 0;
-    _maxRow = row;
-    _maxCol = col;
-    _texture =texture;
-    _bound = bound;
-    _spriteSize = spriteSize;
-}
+    void SpriteSheet::create(sf::Texture* texture, sf::IntRect bound, sf::IntRect spriteSize, int row, int col)
+    {
+        _managed = true;
+        _currRow = 0;
+        _currCol = 0;
+        _maxRow = row;
+        _maxCol = col;
+        _texture =texture;
+        _bound = bound;
+        _spriteSize = spriteSize;
+    }
 
-TextureRegion SpriteSheet::createRegion(sf::Image image, sf::Color defaultColor)
-{
-    if(_managed)
+    TextureRegion SpriteSheet::createRegion(sf::Image image, sf::Color defaultColor)
+    {
+        if(_managed)
+        {
+            sf::Vector2u imgSize = image.getSize();
+            if(imgSize.x != this->_spriteSize.width || imgSize.y != this->_spriteSize.height)
+            {
+                return TextureRegion(); 
+            }
+            sf::IntRect targetBound(_currCol*_spriteSize.width, _currRow*_spriteSize.height, _spriteSize.width, _spriteSize.height);
+            TextureRegion returnRegion = internal_createRegion(image,targetBound);
+            _currCol++;
+            if(_currCol >= _maxCol)
+            {
+                _currCol = 0;
+                _currRow++;
+                if(_currRow >= _maxRow)
+                {
+                    _currRow = 0; //just wrap it back. graphics error is better than runtime.
+                }
+            }
+            returnRegion.defaultColor = defaultColor;
+            return returnRegion;
+        }
+        else
+        {
+            TextureRegion r = createRegion(image,0,0);
+            r.defaultColor = defaultColor;
+            return r;
+        }
+    }
+
+    TextureRegion SpriteSheet::createRegion(sf::Image image, int x , int y, sf::Color defaultColor)
     {
         sf::Vector2u imgSize = image.getSize();
-        if(imgSize.x != this->_spriteSize.width || imgSize.y != this->_spriteSize.height)
-        {
-            return TextureRegion(); 
-        }
-        sf::IntRect targetBound(_currCol*_spriteSize.width, _currRow*_spriteSize.height, _spriteSize.width, _spriteSize.height);
-        TextureRegion returnRegion = internal_createRegion(image,targetBound);
-        _currCol++;
-        if(_currCol >= _maxCol)
-        {
-            _currCol = 0;
-            _currRow++;
-            if(_currRow >= _maxRow)
-            {
-                _currRow = 0; //just wrap it back. graphics error is better than runtime.
-            }
-        }
+        TextureRegion returnRegion = internal_createRegion(image, sf::IntRect(x,y,imgSize.x,imgSize.y));
         returnRegion.defaultColor = defaultColor;
         return returnRegion;
     }
-    else
+
+    TextureRegion SpriteSheet::createRegion(int x, int y, int w, int h, sf::Color defaultColor)
     {
-        TextureRegion r = createRegion(image,0,0);
+        TextureRegion r = internal_createRegion(sf::IntRect(x,y,w,h));
         r.defaultColor = defaultColor;
         return r;
     }
-}
 
-TextureRegion SpriteSheet::createRegion(sf::Image image, int x , int y, sf::Color defaultColor)
-{
-    sf::Vector2u imgSize = image.getSize();
-    TextureRegion returnRegion = internal_createRegion(image, sf::IntRect(x,y,imgSize.x,imgSize.y));
-    returnRegion.defaultColor = defaultColor;
-    return returnRegion;
-}
-
-TextureRegion SpriteSheet::createRegion(int x, int y, int w, int h, sf::Color defaultColor)
-{
-    TextureRegion r = internal_createRegion(sf::IntRect(x,y,w,h));
-    r.defaultColor = defaultColor;
-    return r;
-}
-
-TextureRegion SpriteSheet::createRegion(sf::IntRect region, sf::Color defaultColor)
-{
-    TextureRegion r = internal_createRegion(region);
-    r.defaultColor = defaultColor;
-    return r;
-}
-
-SpriteSheet SpriteSheet::createSubSheet(sf::IntRect bound)
-{
-    bound.top += _bound.top;
-    bound.left += _bound.left;
-    return SpriteSheet(_texture, bound);
-}
-
-SpriteSheet SpriteSheet::createSubSheet(sf::Vector2i position, sf::IntRect spriteSize, int row, int col)
-{
-    sf::IntRect bound(position.x + _bound.left , position.y + _bound.top, row * spriteSize.width , col * spriteSize.height);
-    return SpriteSheet(_texture, bound,spriteSize,row,col);
-}
-
-TextureRegion SpriteSheet::internal_createRegion(sf::Image image, sf::IntRect region)
-{
-    if(_texture == 0)
+    TextureRegion SpriteSheet::createRegion(sf::IntRect region, sf::Color defaultColor)
     {
-        return TextureRegion();
+        TextureRegion r = internal_createRegion(region);
+        r.defaultColor = defaultColor;
+        return r;
     }
-    region.top += _bound.top;
-    region.left += _bound.left;
-    _texture->update(image,region.left,region.top);
-    return TextureRegion(_texture, region);
-}
 
-TextureRegion SpriteSheet::internal_createRegion(sf::IntRect region)
-{
-    if(_texture == 0)
+    SpriteSheet SpriteSheet::createSubSheet(sf::IntRect bound)
     {
-        return TextureRegion();
+        bound.top += _bound.top;
+        bound.left += _bound.left;
+        return SpriteSheet(_texture, bound);
     }
-    region.top += _bound.top;
-    region.left += _bound.left;
-    return TextureRegion(_texture, region);
+
+    SpriteSheet SpriteSheet::createSubSheet(sf::Vector2i position, sf::IntRect spriteSize, int row, int col)
+    {
+        sf::IntRect bound(position.x + _bound.left , position.y + _bound.top, row * spriteSize.width , col * spriteSize.height);
+        return SpriteSheet(_texture, bound,spriteSize,row,col);
+    }
+
+    TextureRegion SpriteSheet::internal_createRegion(sf::Image image, sf::IntRect region)
+    {
+        if(_texture == 0)
+        {
+            return TextureRegion();
+        }
+        region.top += _bound.top;
+        region.left += _bound.left;
+        _texture->update(image,region.left,region.top);
+        return TextureRegion(_texture, region);
+    }
+
+    TextureRegion SpriteSheet::internal_createRegion(sf::IntRect region)
+    {
+        if(_texture == 0)
+        {
+            return TextureRegion();
+        }
+        region.top += _bound.top;
+        region.left += _bound.left;
+        return TextureRegion(_texture, region);
+    }
 }
