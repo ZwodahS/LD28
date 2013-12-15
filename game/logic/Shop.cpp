@@ -142,24 +142,152 @@ void Shop::update(sf::RenderWindow& window, const sf::Time& delta)
 
 void Shop::inputs(sf::RenderWindow& window, const sf::Time& delta)
 {
-    _button_redSell.inputs(window, delta, _game.mouse);
-    _button_greenSell.inputs(window, delta, _game.mouse);
-    _button_blueSell.inputs(window, delta, _game.mouse);
-    _button_yellowSell.inputs(window, delta, _game.mouse);
-    _button_tealSell.inputs(window, delta, _game.mouse);
-    _button_magentaSell.inputs(window, delta, _game.mouse);
-    _button_whiteSell.inputs(window, delta, _game.mouse);
+    if(_button_redSell.inputs(window, delta, _game.mouse))
+    {
+        if(_game.mouse.left.thisReleased)
+        {
+            if(_player.redPixel > 0)
+            {
+                _player.cash += _price_red;
+                _player.redPixel -= 1;
+                updateValues();
+                _player.updateValues();
+            }
+        }
+    }
+    if(_button_greenSell.inputs(window, delta, _game.mouse))
+    {
+        if(_game.mouse.left.thisReleased)
+        {
+            if(_player.greenPixel > 0)
+            {
+                _player.cash += _price_green;
+                _player.greenPixel -= 1;
+                updateValues();
+                _player.updateValues();
+            }
+        }
+    }
+    if(_button_blueSell.inputs(window, delta, _game.mouse))
+    {
+        if(_game.mouse.left.thisReleased)
+        {
+            if(_player.bluePixel > 0)
+            {
+                _player.cash += _price_blue;
+                _player.bluePixel -= 1;
+                updateValues();
+                _player.updateValues();
+            }
+        }
+    }
+    if(_button_yellowSell.inputs(window, delta, _game.mouse))
+    {
+        if(_game.mouse.left.thisReleased)
+        {
+            if(_player.yellowPixel > 0)
+            {
+                _player.cash += _price_yellow;
+                _player.yellowPixel -= 1;
+                updateValues();
+                _player.updateValues();
+            }
+        }
+    }
+    if(_button_tealSell.inputs(window, delta, _game.mouse))
+    {
+        if(_game.mouse.left.thisReleased)
+        {
+            if(_player.tealPixel > 0)
+            {
+                _player.cash += _price_teal;
+                _player.tealPixel -= 1;
+                updateValues();
+                _player.updateValues();
+            }
+        }
+    }
+    if(_button_magentaSell.inputs(window, delta, _game.mouse))
+    {
+        if(_game.mouse.left.thisReleased)
+        {
+            if(_player.magentaPixel > 0)
+            {
+                _player.cash += _price_magenta;
+                _player.magentaPixel -= 1;
+                updateValues();
+                _player.updateValues();
+            }
+        }
+    }
+    if(_button_whiteSell.inputs(window, delta, _game.mouse))
+    {
+        if(_game.mouse.left.thisReleased)
+        {
+            if(_player.whitePixel > 0)
+            {
+                _player.cash += _price_white;
+                _player.whitePixel -= 1;
+                updateValues();
+                _player.updateValues();
+            }
+        }
+    }
 
-    _button_buy1C.inputs(window, delta, _game.mouse);
-    _button_buy5C.inputs(window, delta, _game.mouse);
-    _button_buy1U.inputs(window, delta, _game.mouse);
-    _button_buy5U.inputs(window, delta, _game.mouse);
-    _button_buy1R.inputs(window, delta, _game.mouse);
-    _button_buy5R.inputs(window, delta, _game.mouse);
+    if(_button_buy1C.inputs(window, delta, _game.mouse))
+    {
+        if(_game.mouse.left.thisReleased)
+        {
+            
+        }
+    }
+    if(_button_buy5C.inputs(window, delta, _game.mouse))
+    {
+        if(_game.mouse.left.thisReleased)
+        {
+            
+        }
+    }
+    if(_button_buy1U.inputs(window, delta, _game.mouse))
+    {
+        if(_game.mouse.left.thisReleased)
+        {
+            
+        }
+    }
+    if(_button_buy5U.inputs(window, delta, _game.mouse))
+    {
+        if(_game.mouse.left.thisReleased)
+        {
+            
+        }
+    }
+    if(_button_buy1R.inputs(window, delta, _game.mouse))
+    {
+        if(_game.mouse.left.thisReleased)
+        {
+            
+        }
+    }
+    if(_button_buy5R.inputs(window, delta, _game.mouse))
+    {
+        if(_game.mouse.left.thisReleased)
+        {
+            
+        }
+    }
 }
 
 void Shop::simulatePriceMovement()
 {
+    _price_red += rand() % 10 - 5;
+    _price_green += rand() % 10 - 5;
+    _price_blue += rand() % 10 - 5;
+    _price_yellow += rand() % 10 - 5;
+    _price_teal += rand() % 10 - 5;
+    _price_magenta += rand() % 10 - 5;
+    _price_white += rand() % 10 - 5;
+    updateValues();
 }
 
 void Shop::updatePositions()
