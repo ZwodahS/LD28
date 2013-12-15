@@ -68,6 +68,8 @@ public:
     void animateDestroy();
     bool isAnimating();
     bool markedForDestruction();
+
+    void setClockValue(int clockValue);
 protected:
     Game& _game;
     Board* _board;

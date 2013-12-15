@@ -132,3 +132,10 @@ bool Chip::acceptInputFrom(zf::Direction direction)
 {
     return _arrows.hasIn(direction);
 }
+
+void Chip::setClockValue(int clockValue)
+{
+    _runLeft = clockValue;
+    _timeText.setString(zf::toString(_runLeft));
+    setPosition(_position);
+}

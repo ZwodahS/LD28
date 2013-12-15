@@ -122,3 +122,8 @@ void Inventory::addChip(Chip* chip)
     _chips.push_back(chip);
     updatePositions();
 }
+
+bool Inventory::isFull()
+{
+    return _chips.size() >= 16;
+}

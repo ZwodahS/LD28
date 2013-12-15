@@ -1,6 +1,7 @@
 #include "../Game.hpp"
 #include "Player.hpp"
 #include "Shop.hpp"
+#include "../screens/GameScreen.hpp" // I really hate to do this
 #include "../../z_framework/zf_sfml/f_common.hpp"
 #include "../../z_framework/zf_common/f_conversion.hpp"
 const sf::FloatRect Shop::Text_RedPrice     = sf::FloatRect(780, 70, 150, 30);
@@ -33,8 +34,8 @@ const sf::FloatRect Shop::BuyOneUncommonButton = sf::FloatRect(720, 600, 220, 40
 const sf::FloatRect Shop::BuyFiveUncommonButton = sf::FloatRect(720, 650, 220, 40);
 const sf::FloatRect Shop::BuyOneRareButton = sf::FloatRect(720, 700, 220, 40);
 const sf::FloatRect Shop::BuyFiveRareButton = sf::FloatRect(720, 750, 220, 40);
-Shop::Shop(Game& game, Player& player)
-    : _game(game), _player(player)
+Shop::Shop(Game& game, Player& player, GameScreen& parent)
+    : _game(game), _player(player), _parent(parent)
     , _price_red(StartingPriceBasic), _price_green(StartingPriceBasic), _price_blue(StartingPriceBasic)
     , _price_yellow(StartingPriceAdvanced), _price_teal(StartingPriceAdvanced), _price_magenta(StartingPriceAdvanced)
     , _price_white(StartingPriceExpert)
@@ -238,42 +239,72 @@ void Shop::inputs(sf::RenderWindow& window, const sf::Time& delta)
     {
         if(_game.mouse.left.thisReleased)
         {
-            
+            if(_player.cash >= Cost_One_C)
+            {
+                _player.cash -= Cost_One_C;
+                _player.updateValues();
+                _parent.chipsBought(ChipFactory::Common, 1);
+            }
         }
     }
     if(_button_buy5C.inputs(window, delta, _game.mouse))
     {
         if(_game.mouse.left.thisReleased)
         {
-            
+            if(_player.cash >= Cost_Five_C)
+            {
+                _player.cash -= Cost_Five_C;
+                _player.updateValues();
+                _parent.chipsBought(ChipFactory::Common, 5);
+            }
         }
     }
     if(_button_buy1U.inputs(window, delta, _game.mouse))
     {
         if(_game.mouse.left.thisReleased)
         {
-            
+            if(_player.cash >= Cost_One_U)
+            {
+                _player.cash -= Cost_One_U;
+                _player.updateValues();
+                _parent.chipsBought(ChipFactory::Uncommon, 1);
+            }
         }
     }
     if(_button_buy5U.inputs(window, delta, _game.mouse))
     {
         if(_game.mouse.left.thisReleased)
         {
-            
+            if(_player.cash >= Cost_Five_U)
+            {
+                _player.cash -= Cost_Five_U;
+                _player.updateValues();
+                _parent.chipsBought(ChipFactory::Uncommon, 5);
+            }
         }
     }
     if(_button_buy1R.inputs(window, delta, _game.mouse))
     {
         if(_game.mouse.left.thisReleased)
         {
-            
+            if(_player.cash >= Cost_One_R)
+            {
+                _player.cash -= Cost_One_R;
+                _player.updateValues();
+                _parent.chipsBought(ChipFactory::Rare, 1);
+            }
         }
     }
     if(_button_buy5R.inputs(window, delta, _game.mouse))
     {
         if(_game.mouse.left.thisReleased)
         {
-            
+            if(_player.cash >= Cost_Five_R)
+            {
+                _player.cash -= Cost_Five_R;
+                _player.updateValues();
+                _parent.chipsBought(ChipFactory::Rare, 5);
+            }
         }
     }
 }

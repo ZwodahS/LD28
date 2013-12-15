@@ -45,6 +45,8 @@ public:
     Multiplier* createMultiplier(Rarity rarity);
     Collector* createCollector(Rarity rarity);
     Combiner* createCombiner(Rarity rarity);
+
+    std::vector<Chip*> buyChips(Rarity rarity, int amount);
 private:
     Game& _game;
 };

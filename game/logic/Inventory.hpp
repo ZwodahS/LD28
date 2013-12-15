@@ -20,6 +20,8 @@ public:
     Chip* getSelectedChip();
     Chip* removeSelectedChip();
     void addChip(Chip* chip);
+
+    bool isFull();
 private:
     Game& _game;
     std::vector<Chip*> _chips;

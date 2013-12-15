@@ -24,8 +24,10 @@
 #define _GAME_LOGIC_SHOP_H_
 #include <SFML/Graphics.hpp>
 #include "../../z_framework/zf_sfml/VertexButton.hpp"
+class Parent;
 class Player;
 class Game;
+class GameScreen;
 class Shop
 {
 public:
@@ -71,7 +73,7 @@ public:
     static const sf::FloatRect BuyOneRareButton;
     static const sf::FloatRect BuyFiveRareButton;
 
-    Shop(Game& game, Player& player);
+    Shop(Game& game, Player& player, GameScreen& parent);
 
     void draw(sf::RenderWindow& window, const sf::Time& delta);
     void update(sf::RenderWindow& window, const sf::Time& delta);
@@ -81,6 +83,7 @@ public:
 private:
     Game& _game;
     Player& _player;
+    GameScreen& _parent; 
 
     int _price_red;
     int _price_green;

@@ -3,7 +3,7 @@
 const sf::FloatRect GameScreen::RunFactoryButtonBound = sf::FloatRect(710, 900, 230, 40);
 GameScreen::GameScreen(Game& game)
     : Screen(game), _board(game), _inventory(game), _factory(game), _detail(_game)
-    , _player(game), _shop(game, _player)
+    , _player(game), _shop(game, _player, *this)
 {
     _inventory.addChip(_factory.createPowerStation(ChipFactory::Uncommon));
     _inventory.addChip(_factory.createCombiner(ChipFactory::Rare));
@@ -77,5 +77,23 @@ void GameScreen::placeChipOnGrid(zf::Grid grid)
     if(currentChip != 0)
     {
         _board.placeChip(currentChip, grid);
+    }
+}
+
+void GameScreen::chipsBought(ChipFactory::Rarity rarity, int amount)
+{
+    std::vector<Chip*> chips = _factory.buyChips(rarity, amount);
+    bool destroy = false;
+    for(std::vector<Chip*>::iterator it = chips.begin() ; it != chips.end() ; ++it)
+    {
+        if(destroy || _inventory.isFull())
+        {
+            destroy = true;
+            delete *it;
+        }
+        else
+        {
+            _inventory.addChip(*it);
+        }
     }
 }

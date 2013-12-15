@@ -23,6 +23,8 @@ public:
     void screenExit();
 
     void placeChipOnGrid(zf::Grid grid);
+
+    void chipsBought(ChipFactory::Rarity rarity, int amount);
 private:
     Board _board;
     Inventory _inventory;

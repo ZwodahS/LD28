@@ -191,3 +191,37 @@ Combiner* ChipFactory::createCombiner(ChipFactory::Rarity rarity)
     }
     return combiner;
 }
+
+std::vector<Chip*> ChipFactory::buyChips(ChipFactory::Rarity rarity, int amount)
+{
+    std::vector<Chip*> chips;
+    for(int i = 0 ; i < amount ; i++)
+    {
+        int prob = rand() % 100;
+        if(prob < 20)
+        {
+            chips.push_back(createPowerStation(rarity));
+        }
+        else if(prob < 40)
+        {
+            chips.push_back(createFactory(rarity));
+        }
+        else if(prob < 60)
+        {
+            chips.push_back(createConnector(rarity));
+        }
+        else if(prob < 80)
+        {
+            chips.push_back(createCollector(rarity));
+        }
+        else if(prob < 90)
+        {
+            chips.push_back(createCombiner(rarity));
+        }
+        else
+        {
+            chips.push_back(createMultiplier(rarity));
+        }
+    }
+    return chips;
+}
