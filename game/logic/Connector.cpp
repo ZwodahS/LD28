@@ -21,7 +21,7 @@
  * http://sam.zoy.org/wtfpl/COPYING for more details. 
  */
 #include "Connector.hpp"
-Connector::Connector(Game& game, Board& board)
+Connector::Connector(Game& game, Board* board)
     : Chip(game, board)
 {
 }

@@ -25,7 +25,7 @@ class PowerStation : public Chip
 {
 public:
     static const sf::Vector2f PowerIconOffset;
-    PowerStation(Game& game, Board& board);
+    PowerStation(Game& game, Board* board = 0);
     ~PowerStation();
 
     void draw(sf::RenderWindow& window, const sf::Time& delta);

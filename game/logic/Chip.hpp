@@ -31,22 +31,24 @@ class Chip
 public:
     static const sf::Vector2f TimerOffset;
     static const sf::Vector2f TextBoundOffset;
-    Chip(Game& game, Board& board);
+    Chip(Game& game, Board* board = 0);
     virtual ~Chip();
 
     virtual void draw(sf::RenderWindow& window, const sf::Time& delta);
     virtual void update(sf::RenderWindow& window, const sf::Time& delta);
     virtual void setPosition(const sf::Vector2f& position);
     virtual void rotate();
+    virtual const sf::FloatRect& getBound();
 protected:
     Game& _game;
-    Board& _board;
+    Board* _board;
     sf::Sprite _background;
     sf::Sprite _timer;
     sf::Text _timeText;
     sf::FloatRect _textBound;
     sf::Vector2f _position;
     ArrowControl _arrows;
+    sf::FloatRect _bound;
 private:
 };
 #endif

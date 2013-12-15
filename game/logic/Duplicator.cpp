@@ -21,7 +21,7 @@
  * http://sam.zoy.org/wtfpl/COPYING for more details. 
  */
 #include "Duplicator.hpp"
-Duplicator::Duplicator(Game& game, Board& board)
+Duplicator::Duplicator(Game& game, Board* board)
     : Chip(game, board)
 {
 }

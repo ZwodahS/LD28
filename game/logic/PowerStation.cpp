@@ -23,7 +23,7 @@
 #include "PowerStation.hpp"
 #include "Board.hpp"
 const sf::Vector2f PowerStation::PowerIconOffset = sf::Vector2f(27,28);
-PowerStation::PowerStation(Game& game, Board& board)
+PowerStation::PowerStation(Game& game, Board* board)
     : Chip(game, board)
 {
     _background = _game.assets.chipOutline.createSprite();
@@ -41,7 +41,7 @@ PowerStation::~PowerStation()
 void PowerStation::draw(sf::RenderWindow& window, const sf::Time& delta)
 {
     Chip::draw(window, delta);
-    if(_board.chipDrawState == Board::Draw_Icon)
+    if(_board == 0 || _board->chipDrawState == Board::Draw_Icon)
     {
         window.draw(_icon);
     }

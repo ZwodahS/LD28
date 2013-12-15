@@ -24,6 +24,6 @@
 class Duplicator : public Chip
 {
 public:
-    Duplicator(Game& game, Board& board);
+    Duplicator(Game& game, Board* board = 0);
     ~Duplicator();
 };

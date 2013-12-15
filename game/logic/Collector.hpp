@@ -24,6 +24,6 @@
 class Collector : public Chip
 {
 public:
-    Collector(Game& game, Board& board);
+    Collector(Game& game, Board* board = 0);
     ~Collector();
 };

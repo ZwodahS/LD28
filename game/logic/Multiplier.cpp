@@ -21,7 +21,7 @@
  * http://sam.zoy.org/wtfpl/COPYING for more details. 
  */
 #include "Multiplier.hpp"
-Multiplier::Multiplier(Game& game, Board& board)
+Multiplier::Multiplier(Game& game, Board* board)
     : Chip(game, board)
 {
 }

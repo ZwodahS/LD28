@@ -2,6 +2,7 @@
 #define _GAME_SCREENS_GAMESCREEN_H_
 #include "Screen.hpp"
 #include "../logic/Board.hpp"
+#include "../logic/Inventory.hpp"
 class GameScreen : public Screen
 {
 public:
@@ -16,5 +17,7 @@ public:
     void screenExit();
 private:
     Board _board;
+    Inventory _inventory;
+
 };
 #endif
