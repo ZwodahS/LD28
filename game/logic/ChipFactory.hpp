@@ -20,24 +20,28 @@
  * To Public License, Version 2, as published by Sam Hocevar. See
  * http://sam.zoy.org/wtfpl/COPYING for more details. 
  */
+#ifndef _GAME_LOGIC_CHIPFACTORY_H_
+#define _GAME_LOGIC_CHIPFACTORY_H_
 #include "Chip.hpp"
-class PowerStation : public Chip
+#include "Collector.hpp"
+#include "Combiner.hpp"
+#include "Connector.hpp"
+#include "Duplicator.hpp"
+#include "Factory.hpp"
+#include "Multiplier.hpp"
+#include "PowerStation.hpp"
+class ChipFactory
 {
 public:
-    static const sf::Vector2f PowerIconOffset;
-    PowerStation(Game& game, Board* board = 0);
-    ~PowerStation();
-
-    void draw(sf::RenderWindow& window, const sf::Time& delta);
-    void update(sf::RenderWindow& window, const sf::Time& delta);
-
-    void setPosition(const sf::Vector2f& position);
-    void setAlpha(float alpha);
-    
-    /**
-     * PowerStation only have output, no input
-     */
-    void setArrow(bool north, bool east, bool south, bool west);
-protected:
-    sf::Sprite _icon;
+    enum Rarity
+    {
+        Common,
+        Uncommon,
+        Rare,
+    };
+    ChipFactory(Game& game);
+    PowerStation* createRandomPowerStation(Rarity rarity);
+private:
+    Game& _game;
 };
+#endif

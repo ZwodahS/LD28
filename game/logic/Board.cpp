@@ -27,14 +27,6 @@ Board::Board(Game& game)
         line[1].color = lineColor;
         _lines.push_back(line);
     }
-
-    PowerStation* station = new PowerStation(game, this);
-    _chips.set(4,4,station);
-    (*station).setPosition(chipPosition(4,4));
-
-    station = new PowerStation(game, this);
-    _chips.set(5,5,station);
-    (*station).setPosition(chipPosition(5,5));
 }
 
 

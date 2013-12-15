@@ -3,6 +3,7 @@
 #include "Screen.hpp"
 #include "../logic/Board.hpp"
 #include "../logic/Inventory.hpp"
+#include "../logic/ChipFactory.hpp"
 class GameScreen : public Screen
 {
 public:
@@ -20,5 +21,6 @@ public:
 private:
     Board _board;
     Inventory _inventory;
+    ChipFactory _factory;
 };
 #endif

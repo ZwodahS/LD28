@@ -20,24 +20,35 @@
  * To Public License, Version 2, as published by Sam Hocevar. See
  * http://sam.zoy.org/wtfpl/COPYING for more details. 
  */
-#include "Chip.hpp"
-class PowerStation : public Chip
+#include "ChipFactory.hpp"
+
+ChipFactory::ChipFactory(Game& game)
+    : _game(game)
 {
-public:
-    static const sf::Vector2f PowerIconOffset;
-    PowerStation(Game& game, Board* board = 0);
-    ~PowerStation();
+}
 
-    void draw(sf::RenderWindow& window, const sf::Time& delta);
-    void update(sf::RenderWindow& window, const sf::Time& delta);
-
-    void setPosition(const sf::Vector2f& position);
-    void setAlpha(float alpha);
-    
-    /**
-     * PowerStation only have output, no input
-     */
-    void setArrow(bool north, bool east, bool south, bool west);
-protected:
-    sf::Sprite _icon;
-};
+PowerStation* ChipFactory::createRandomPowerStation(ChipFactory::Rarity rarity)
+{
+    PowerStation* station = new PowerStation(_game);
+    if(rarity == Common)
+    {
+        int x = rand() % 2;
+        if(x == 0)
+        {
+            station->setArrow(true, true, false, false);
+        }
+        else
+        {
+            station->setArrow(true, false, true, false);
+        }
+    }
+    else if(rarity == Uncommon)
+    {
+        station->setArrow(true, true, false, true);
+    }
+    else 
+    {
+        station->setArrow(true, true, true, true);
+    }
+    return station;
+}

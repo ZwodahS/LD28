@@ -1,8 +1,11 @@
 #include "GameScreen.hpp"
 #include "../Game.hpp"
 GameScreen::GameScreen(Game& game)
-    : Screen(game), _board(game), _inventory(game)
+    : Screen(game), _board(game), _inventory(game), _factory(game)
 {
+    _board.placeChip(_factory.createRandomPowerStation(ChipFactory::Common), zf::Grid(3, 3));
+    _board.placeChip(_factory.createRandomPowerStation(ChipFactory::Uncommon), zf::Grid(4, 4));
+    _board.placeChip(_factory.createRandomPowerStation(ChipFactory::Rare), zf::Grid(5, 5));
 }
 
 GameScreen::~GameScreen()

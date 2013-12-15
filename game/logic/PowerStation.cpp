@@ -28,10 +28,6 @@ PowerStation::PowerStation(Game& game, Board* board)
     : Chip(game, board)
 {
     _background = _game.assets.chipOutline.createSprite();
-    _arrows.setArrow(zf::North, ArrowControl::In)
-           .setArrow(zf::East, ArrowControl::Out)
-           .setArrow(zf::South, ArrowControl::In)
-           .setArrow(zf::West, ArrowControl::None);
     _icon = _game.assets.power.createSprite();
 }
 
@@ -65,4 +61,12 @@ void PowerStation::setAlpha(float alpha)
 {
     Chip::setAlpha(alpha);
     zf::setAlpha(_icon, alpha);
+}
+
+void PowerStation::setArrow(bool north, bool east, bool south, bool west)
+{
+    _arrows.setArrow(zf::North, north ? ArrowControl::Out : ArrowControl::None);
+    _arrows.setArrow(zf::East, east ? ArrowControl::Out : ArrowControl::None);
+    _arrows.setArrow(zf::South, south ? ArrowControl::Out : ArrowControl::None);
+    _arrows.setArrow(zf::West, west ? ArrowControl::Out : ArrowControl::None);
 }
