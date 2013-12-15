@@ -89,6 +89,10 @@ void Factory::beginProcessing()
             output = new FactoryOutput(_game, _factoryType);
             break;
         }
+        else
+        {
+            delete *it;
+        }
     }
     if(output != 0)
     {

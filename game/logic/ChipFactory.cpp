@@ -41,14 +41,17 @@ PowerStation* ChipFactory::createPowerStation(ChipFactory::Rarity rarity)
         {
             station->setArrow(ArrowControl::Out, ArrowControl::None, ArrowControl::Out, ArrowControl::None);
         }
+        station->setClockValue(rand() % 3 + 6);
     }
     else if(rarity == Uncommon)
     {
         station->setArrow(ArrowControl::Out, ArrowControl::Out, ArrowControl::None, ArrowControl::Out);
+        station->setClockValue(rand() % 3 + 8);
     }
     else 
     {
         station->setArrow(ArrowControl::Out, ArrowControl::Out, ArrowControl::Out, ArrowControl::Out);
+        station->setClockValue(rand() % 3 + 10);
     }
     return station;
 }
@@ -71,6 +74,7 @@ Factory* ChipFactory::createFactory(ChipFactory::Rarity rarity)
         {
             factory->setArrow(ArrowControl::Out, ArrowControl::None, ArrowControl::None, ArrowControl::In);
         }   
+        factory->setClockValue(10);
     }
     else if(rarity == Uncommon)
     {
@@ -87,10 +91,12 @@ Factory* ChipFactory::createFactory(ChipFactory::Rarity rarity)
         {
             factory->setArrow(ArrowControl::Out, ArrowControl::In, ArrowControl::None, ArrowControl::In);
         }   
+        factory->setClockValue(10);
     }
     else if(rarity == Rare)
     {
         factory->setArrow(ArrowControl::Out, ArrowControl::In, ArrowControl::In, ArrowControl::In);
+        factory->setClockValue(10);
     }
     int r = rand() % 3;
     if(r == 0)
@@ -127,14 +133,17 @@ Connector* ChipFactory::createConnector(ChipFactory::Rarity rarity)
     if(rarity == Common)
     {
         connector->setTransferSpeed(1);
+        connector->setClockValue(20);
     }
     else if(rarity == Uncommon)
     {
         connector->setTransferSpeed(2);
+        connector->setClockValue(20);
     }
     else if(rarity == Rare)
     {
         connector->setTransferSpeed(3);
+        connector->setClockValue(20);
     }
     return connector;
 }
@@ -143,6 +152,18 @@ Multiplier* ChipFactory::createMultiplier(ChipFactory::Rarity rarity)
 {
     Multiplier* multiplier = new Multiplier(_game);
     multiplier->setArrow(ArrowControl::Out, ArrowControl::In, ArrowControl::In, ArrowControl::In);
+    if(rarity == Common)
+    {
+        multiplier->setClockValue(4);
+    }
+    else if(rarity == Uncommon)
+    {
+        multiplier->setClockValue(6);
+    }
+    else if(rarity == Rare)
+    {
+        multiplier->setClockValue(8);
+    }
     return multiplier;
 }
 
@@ -160,14 +181,17 @@ Collector* ChipFactory::createCollector(ChipFactory::Rarity rarity)
         {
             collector->setArrow(ArrowControl::In, ArrowControl::None, ArrowControl::In, ArrowControl::None);
         }
+        collector->setClockValue(rand() % 3 + 8);
     }
     else if(rarity == Uncommon)
     {
         collector->setArrow(ArrowControl::In, ArrowControl::In, ArrowControl::None, ArrowControl::In);
+        collector->setClockValue(rand() % 3 + 13);
     }
     else 
     {
         collector->setArrow(ArrowControl::In, ArrowControl::In, ArrowControl::In, ArrowControl::In);
+        collector->setClockValue(rand() % 3 + 18);
     }
     return collector;
 }
@@ -176,18 +200,39 @@ Combiner* ChipFactory::createCombiner(ChipFactory::Rarity rarity)
 {
     Combiner* combiner = new Combiner(_game);
     combiner->setArrow(ArrowControl::Out, ArrowControl::In, ArrowControl::In, ArrowControl::In);
-    int r = rand() % 3;
-    if(r == 0)
+    if(rarity != Rare)
     {
-        combiner->setConversion(FactoryOutput::Pixel_Red, FactoryOutput::Pixel_Blue, FactoryOutput::Pixel_Magenta);
+        int r = rand() % 3;
+        if(r == 0)
+        {
+            combiner->setConversion(FactoryOutput::Pixel_Red, FactoryOutput::Pixel_Blue, FactoryOutput::Pixel_Magenta);
+        }
+        else if(r == 1)
+        {
+            combiner->setConversion(FactoryOutput::Pixel_Blue, FactoryOutput::Pixel_Green, FactoryOutput::Pixel_Teal);
+        }
+        else 
+        {
+            combiner->setConversion(FactoryOutput::Pixel_Red, FactoryOutput::Pixel_Green, FactoryOutput::Pixel_Yellow);
+        }
+        combiner->setClockValue(rand() % 3 + 8);
     }
-    else if(r == 1)
+    else
     {
-        combiner->setConversion(FactoryOutput::Pixel_Blue, FactoryOutput::Pixel_Green, FactoryOutput::Pixel_Teal);
-    }
-    else 
-    {
-        combiner->setConversion(FactoryOutput::Pixel_Red, FactoryOutput::Pixel_Green, FactoryOutput::Pixel_Yellow);
+        int r = rand() % 3;
+        if(r == 0)
+        {
+            combiner->setConversion(FactoryOutput::Pixel_Red, FactoryOutput::Pixel_Teal, FactoryOutput::Pixel_White);
+        }
+        else if(r == 1)
+        {
+            combiner->setConversion(FactoryOutput::Pixel_Blue, FactoryOutput::Pixel_Yellow, FactoryOutput::Pixel_White);
+        }
+        else 
+        {
+            combiner->setConversion(FactoryOutput::Pixel_Green, FactoryOutput::Pixel_Magenta, FactoryOutput::Pixel_White);
+        }
+        combiner->setClockValue(rand() % 3 + 8);
     }
     return combiner;
 }
