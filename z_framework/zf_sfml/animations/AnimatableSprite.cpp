@@ -47,9 +47,16 @@ namespace zf
     {
         sf::Vector2f center = getCenterPosition();
         sf::Vector2f scale = _sprite.getScale();
+        sf::Color color = _sprite.getColor();
         sprite.setScale(scale);
+        sprite.setColor(color);
         _sprite = sprite;
         setCenterPosition(center);
+    }
+
+    void AnimatableSprite::setColor(sf::Color color)
+    {
+        _sprite.setColor(color);
     }
 
     void AnimatableSprite::setPosition(sf::Vector2f position)

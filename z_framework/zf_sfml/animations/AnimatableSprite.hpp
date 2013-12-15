@@ -49,6 +49,7 @@ namespace zf
          * The current properties that is kept is
          * 1) the current scale of the old sprite.
          * 2) the CENTER position of the old sprite.
+         * 3) the color of the old sprite
          */
         void setSprite(sf::Sprite newSprite);
         /************** iAnimatable/iBoundable ****************/
@@ -58,6 +59,7 @@ namespace zf
         void move(sf::Vector2f move);
         sf::Vector2f getPosition();
         void setScale(float x, float y);
+        void setColor(sf::Color color);
         sf::FloatRect getBoundingBox();
         /************** iCenterable ****************/
         // see iCenterable for the specification for these methods
@@ -76,6 +78,7 @@ namespace zf
          * Do not use this unless necessary.
          */
         sf::Sprite& getSprite();
+
     private:
         sf::Sprite _sprite;
         AnimationComponent _animator;

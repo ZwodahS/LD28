@@ -6,6 +6,7 @@ vpath %.cpp z_framework/zf_sfml/
 vpath %.cpp z_framework/zf_sfml/animations
 # game code.
 vpath %.cpp game/
+vpath %.cpp game/logic
 # game screen code
 vpath %.cpp game/screens/
 vpath %.o obj/

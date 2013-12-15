@@ -1,6 +1,7 @@
 #ifndef _GAME_SCREENS_GAMESCREEN_H_
 #define _GAME_SCREENS_GAMESCREEN_H_
 #include "Screen.hpp"
+#include "../logic/Board.hpp"
 class GameScreen : public Screen
 {
 public:
@@ -14,5 +15,6 @@ public:
     void screenEnter();
     void screenExit();
 private:
+    Board _board;
 };
 #endif
