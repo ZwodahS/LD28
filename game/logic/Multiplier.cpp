@@ -28,7 +28,7 @@ const sf::Vector2f Multiplier::ArrowOffset = sf::Vector2f(25, 29);
 const sf::Vector2f Multiplier::Output1Offset = sf::Vector2f(43, 16);
 const sf::Vector2f Multiplier::Output2Offset = sf::Vector2f(43, 32);
 Multiplier::Multiplier(Game& game, Board* board)
-    : Chip(game, board), _input("?", game.assets.font, 14)
+    : Chip(game, board, Chip::Multiplier), _input("?", game.assets.font, 14)
     , _output1("?", game.assets.font, 14), _output2("?", game.assets.font, 14)
 {
     _conversionArrow = _game.assets.conversionArrow.createSprite();
@@ -77,3 +77,26 @@ void Multiplier::setAlpha(float alpha)
     zf::setAlpha(_output2, alpha);
 }
 
+void Multiplier::beginProcessing()
+{
+}
+
+bool Multiplier::isProcessing()
+{
+    return false;
+}
+
+std::vector<std::pair<FactoryOutput*, zf::Grid> > Multiplier::getOutputs()
+{
+    std::vector<std::pair<FactoryOutput*, zf::Grid> > outputs;
+    return outputs;
+}
+
+bool Multiplier::acceptInput(FactoryOutput* output)
+{
+    if(output == 0 || output->getType() == FactoryOutput::None)
+    {
+        return false;
+    }
+    return true;
+}

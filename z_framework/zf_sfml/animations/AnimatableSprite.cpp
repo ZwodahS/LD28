@@ -149,4 +149,9 @@ namespace zf
     {
         return _sprite;
     }
+
+    bool AnimatableSprite::isAnimating() const
+    {
+        return _animator.isAnimating();
+    }
 }

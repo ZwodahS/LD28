@@ -4,9 +4,12 @@
 #include "../logic/Board.hpp"
 #include "../logic/Inventory.hpp"
 #include "../logic/ChipFactory.hpp"
+#include "ChipDetail.hpp"
+#include "../../z_framework/zf_sfml/VertexButton.hpp"
 class GameScreen : public Screen
 {
 public:
+    static const sf::FloatRect RunFactoryButtonBound;
     GameScreen(Game& game);
     ~GameScreen();
 
@@ -22,5 +25,8 @@ private:
     Board _board;
     Inventory _inventory;
     ChipFactory _factory;
+    ChipDetail _detail;
+
+    zf::VertexButton _runFactory;
 };
 #endif

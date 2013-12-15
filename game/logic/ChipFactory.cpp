@@ -95,15 +95,15 @@ Factory* ChipFactory::createFactory(ChipFactory::Rarity rarity)
     int r = rand() % 3;
     if(r == 0)
     {
-        factory->setPixelProduction(Pixel::Red);
+        factory->setFactoryOutputProduction(FactoryOutput::Pixel_Red);
     }
     else if(r == 1)
     {
-        factory->setPixelProduction(Pixel::Blue);
+        factory->setFactoryOutputProduction(FactoryOutput::Pixel_Blue);
     }
     else 
     {
-        factory->setPixelProduction(Pixel::Green);
+        factory->setFactoryOutputProduction(FactoryOutput::Pixel_Green);
     }
     return factory;
 }
@@ -179,15 +179,15 @@ Combiner* ChipFactory::createCombiner(ChipFactory::Rarity rarity)
     int r = rand() % 3;
     if(r == 0)
     {
-        combiner->setConversion(Pixel::Red, Pixel::Blue, Pixel::Magenta);
+        combiner->setConversion(FactoryOutput::Pixel_Red, FactoryOutput::Pixel_Blue, FactoryOutput::Pixel_Magenta);
     }
     else if(r == 1)
     {
-        combiner->setConversion(Pixel::Blue, Pixel::Green, Pixel::Teal);
+        combiner->setConversion(FactoryOutput::Pixel_Blue, FactoryOutput::Pixel_Green, FactoryOutput::Pixel_Teal);
     }
     else 
     {
-        combiner->setConversion(Pixel::Red, Pixel::Green, Pixel::Yellow);
+        combiner->setConversion(FactoryOutput::Pixel_Red, FactoryOutput::Pixel_Green, FactoryOutput::Pixel_Yellow);
     }
     return combiner;
 }

@@ -1,12 +1,12 @@
 #include "Board.hpp"
 #include "../Game.hpp"
 #include "Chip.hpp"
-#include "PowerStation.hpp"
+#include "FactoryOutput.hpp"
 const float Board::BlinkInterval = 2;
 const int Board::Max_Row = 10;
 const int Board::Max_Col = 10;
 Board::Board(Game& game)
-    : _game(game), _chips(Max_Row, Max_Col, 0), _blink(BlinkInterval), chipDrawState(Draw_Icon)
+    : _game(game), _chips(Max_Row, Max_Col, 0), _blink(BlinkInterval), chipDrawState(Draw_Icon), boardState(State_Idle)
 {
     sf::Color lineColor = sf::Color(50,50,50);
     for(int row = 0 ; row < 11 ; row ++)
@@ -43,6 +43,10 @@ void Board::draw(sf::RenderWindow& window, const sf::Time& delta)
     {
         window.draw(*it);
     }
+    for(std::vector<FactoryOutput*>::iterator it = _factoryOutputs.begin() ; it != _factoryOutputs.end() ; ++it)
+    {
+        (**it).draw(window, delta);
+    }
 }
 
 void Board::update(sf::RenderWindow& window, const sf::Time& delta)
@@ -59,6 +63,150 @@ void Board::update(sf::RenderWindow& window, const sf::Time& delta)
     {
         _blink += BlinkInterval;
         chipDrawState = chipDrawState == Draw_Icon ? Draw_Timer : Draw_Icon;
+    }
+    if(boardState == State_Idle)
+    {
+    }
+    else if(boardState == State_Processing)
+    {
+        bool stillProcessing = false;
+        for(zf::TwoDSpace<Chip*>::Iterator it = _chips.iteratesColRow(); !(it.end()) ; ++it)
+        {
+            if(it.get() != 0)
+            {
+                if((*it.get()).isProcessing())
+                {
+                    stillProcessing = true;
+                    break;
+                }
+            }
+        }
+        if(stillProcessing)
+        {
+        }
+        else
+        {
+            static const sf::Vector2f FactoryOutputOffset = sf::Vector2f(27, 27);
+            for(zf::TwoDSpace<Chip*>::Iterator it = _chips.iteratesColRow(); !(it.end()) ; ++it)
+            {
+                if(it.get() != 0)
+                {
+                    std::vector<std::pair<FactoryOutput*, zf::Grid> > outputs = (*it.get()).getOutputs();
+                    int i = 0;
+                    for(std::vector<std::pair<FactoryOutput*, zf::Grid> >::iterator it2 = outputs.begin() ; it2 != outputs.end() ; ++it2)
+                    {
+                        zf::Grid directionGrid = (*it2).second;
+                        zf::Grid destinationGrid = (*it2).second + it.current;
+                        sf::Vector2f startingDestination = chipPosition(it.current.row, it.current.col);
+                        sf::Vector2f endingDestination = chipPosition(destinationGrid.row, destinationGrid.col);
+                        Chip* chip = _chips.get(destinationGrid);
+                        zf::Direction inputDirection = directionGrid == zf::Grid(-1, 0) ? zf::South :
+                                                       directionGrid == zf::Grid(1, 0)  ? zf::North :
+                                                       directionGrid == zf::Grid(0, -1) ? zf::East  : zf::West;
+                        if(!inRange(destinationGrid))
+                        {
+                            delete (*it2).first;
+                        }
+                        if(chip != 0 && chip->acceptInputFrom(inputDirection) && chip->acceptInput((*it2).first))
+                        {
+                            (*(*it2).first).moveTo( FactoryOutputOffset + startingDestination
+                                                 , FactoryOutputOffset + endingDestination
+                                                 , i);
+                            _factoryOutputs.push_back((*it2).first);
+                            (*it2).first->targetGrid = destinationGrid;
+                            i++;
+                        }
+                        else
+                        {
+                            delete (*it2).first;
+                        }
+                    }
+                }
+            }
+            boardState = State_MovingObject;
+        }
+    }
+    else if(boardState == State_MovingObject)
+    {
+        for(std::vector<FactoryOutput*>::iterator it = _factoryOutputs.begin() ; it != _factoryOutputs.end() ; ++it)
+        {
+            (**it).update(window, delta);
+        }
+        bool stillanimating = false;
+        for(std::vector<FactoryOutput*>::iterator it = _factoryOutputs.begin() ; it != _factoryOutputs.end() ; ++it)
+        {
+            if((**it).isAnimating())
+            {
+                stillanimating = true;
+                break;
+            }
+        }
+        if(!stillanimating)
+        {
+            for(std::vector<FactoryOutput*>::iterator it = _factoryOutputs.begin() ; it != _factoryOutputs.end() ; ++it)
+            {
+                if((**it).markedForDestruction)
+                {
+                    delete *it;
+                }
+                else
+                {
+                    Chip* chip = _chips.get((**it).targetGrid);
+                    if(chip == 0)
+                    {
+                        delete *it;
+                    }
+                    else
+                    {
+                        chip->put(*it);
+                    }
+                }
+            }
+            _factoryOutputs.clear();
+            for(zf::TwoDSpace<Chip*>::Iterator it = _chips.iteratesColRow(); !(it.end()) ; ++it)
+            {
+                if(it.get() != 0)
+                {
+                    if((*(it.get())).clockDeplete())
+                    {
+                        (*(it.get())).animateDestroy();
+                    }
+                }
+            }
+            boardState = State_DestructionOfChip;
+        }
+    }
+    else if(boardState == State_DestructionOfChip)
+    {
+        bool isAnimating = false;
+        for(zf::TwoDSpace<Chip*>::Iterator it = _chips.iteratesColRow(); !(it.end()) ; ++it)
+        {
+            if(it.get() != 0)
+            {
+                Chip& chip = *(it.get());
+                if(chip.isAnimating())
+                {
+                    isAnimating = true;
+                    break;
+                }
+            }
+        }
+        if(!isAnimating)
+        {
+            for(zf::TwoDSpace<Chip*>::Iterator it = _chips.iteratesColRow(); !(it.end()) ; ++it)
+            {
+                if(it.get() != 0)
+                {
+                    Chip& chip = *(it.get());
+                    if(chip.markedForDestruction())
+                    {
+                        delete &chip;
+                        it.set(0);
+                    }
+                }
+            }
+            boardState = State_Idle;
+        }
     }
 }
 
@@ -119,4 +267,18 @@ void Board::placeChip(Chip* chip, const zf::Grid& grid)
     chip->setBoard(this);
 }
 
-
+void Board::runOnce()
+{
+    if(boardState != State_Idle)
+    {
+        return;
+    }
+    boardState = State_Processing;
+    for(zf::TwoDSpace<Chip*>::Iterator it = _chips.iteratesColRow(); !(it.end()) ; ++it)
+    {
+        if(it.get() != 0)
+        {
+            (*(it.get())).beginProcessing();
+        }
+    }
+}

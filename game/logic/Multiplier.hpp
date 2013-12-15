@@ -38,6 +38,10 @@ public:
     void setPosition(const sf::Vector2f& position);
     void setAlpha(float alpha);
 
+    void beginProcessing();
+    bool isProcessing();
+    bool acceptInput(FactoryOutput* factory);
+    std::vector<std::pair<FactoryOutput*, zf::Grid> > getOutputs();
 protected:
     sf::Sprite _conversionArrow;    
     sf::Sprite _powerIcon;

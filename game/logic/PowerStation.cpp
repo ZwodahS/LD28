@@ -25,7 +25,7 @@
 #include "../../z_framework/zf_sfml/f_common.hpp"
 const sf::Vector2f PowerStation::PowerIconOffset = sf::Vector2f(27,28);
 PowerStation::PowerStation(Game& game, Board* board)
-    : Chip(game, board)
+    : Chip(game, board, Chip::PowerStation)
 {
     _background = _game.assets.chipOutline.createSprite();
     _icon = _game.assets.power.createSprite();
@@ -62,3 +62,39 @@ void PowerStation::setAlpha(float alpha)
     zf::setAlpha(_icon, alpha);
 }
 
+void PowerStation::beginProcessing()
+{
+    if(_arrows.hasOut(zf::North))
+    {
+        _outputs.push_back(std::pair<FactoryOutput*, zf::Grid>(new FactoryOutput(_game, FactoryOutput::Power), zf::Grid(-1, 0)));
+    }
+    if(_arrows.hasOut(zf::East))
+    {
+        _outputs.push_back(std::pair<FactoryOutput*, zf::Grid>(new FactoryOutput(_game, FactoryOutput::Power), zf::Grid(0, 1)));
+    }
+    if(_arrows.hasOut(zf::South))
+    {
+        _outputs.push_back(std::pair<FactoryOutput*, zf::Grid>(new FactoryOutput(_game, FactoryOutput::Power), zf::Grid(1, 0)));
+    }
+    if(_arrows.hasOut(zf::West))
+    {
+        _outputs.push_back(std::pair<FactoryOutput*, zf::Grid>(new FactoryOutput(_game, FactoryOutput::Power), zf::Grid(0, -1)));
+    }
+}
+
+bool PowerStation::isProcessing()
+{
+    return false;
+}
+
+std::vector<std::pair<FactoryOutput*, zf::Grid> > PowerStation::getOutputs()
+{
+    std::vector<std::pair<FactoryOutput*, zf::Grid> > outputs = _outputs;
+    _outputs.clear();
+    return outputs;
+}
+
+bool PowerStation::acceptInput(FactoryOutput* output)
+{
+    return false;
+}

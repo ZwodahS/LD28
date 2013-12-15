@@ -38,7 +38,12 @@ public:
     void setPosition(const sf::Vector2f& position);
     void setAlpha(float alpha);
 
-    void setConversion(Pixel::Type type1, Pixel::Type type2, Pixel::Type output);
+    void setConversion(FactoryOutput::Type type1, FactoryOutput::Type type2, FactoryOutput::Type output);
+
+    void beginProcessing();
+    bool isProcessing();
+    bool acceptInput(FactoryOutput* factory);
+    std::vector<std::pair<FactoryOutput*, zf::Grid> > getOutputs();
 private:
     sf::Sprite _conversionArrow;
     sf::Sprite _input1;
@@ -46,7 +51,7 @@ private:
     sf::Sprite _input3;
     sf::Sprite _output;
 
-    Pixel::Type _type1;
-    Pixel::Type _type2;
-    Pixel::Type _outputType;
+    FactoryOutput::Type _type1;
+    FactoryOutput::Type _type2;
+    FactoryOutput::Type _outputType;
 };

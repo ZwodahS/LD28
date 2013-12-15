@@ -152,3 +152,51 @@ void ArrowControl::setAlpha(float alpha)
     zf::setAlpha(_southSprite, alpha);
     zf::setAlpha(_westSprite, alpha);
 }
+
+bool ArrowControl::hasOut(zf::Direction direction)
+{
+    if(direction == zf::North)
+    {
+        return _north == Out;
+    }
+    else if(direction == zf::South)
+    {
+        return _south == Out;
+    }
+    else if(direction == zf::East)
+    {
+        return _east == Out;
+    }
+    else if(direction == zf::West)
+    {
+        return _west == Out;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool ArrowControl::hasIn(zf::Direction direction)
+{
+    if(direction == zf::North)
+    {
+        return _north == In;
+    }
+    else if(direction == zf::South)
+    {
+        return _south == In;
+    }
+    else if(direction == zf::East)
+    {
+        return _east == In;
+    }
+    else if(direction == zf::West)
+    {
+        return _west == In;
+    }
+    else
+    {
+        return false;
+    }
+}

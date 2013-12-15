@@ -52,6 +52,9 @@ public:
     void setAlpha(float alpha);
     void draw(sf::RenderWindow& window, const sf::Time& delta);
     void update(sf::RenderWindow& window, const sf::Time& delta);
+
+    bool hasOut(zf::Direction direction);
+    bool hasIn(zf::Direction direction);
 private:
     Game& _game;
     ArrowType _north;

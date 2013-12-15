@@ -26,9 +26,9 @@ const sf::Vector2f Factory::PowerOffset = sf::Vector2f(13, 29);
 const sf::Vector2f Factory::ArrowOffset = sf::Vector2f(25, 29);
 const sf::Vector2f Factory::OutputOffset = sf::Vector2f(40, 29);
 Factory::Factory(Game& game, Board* board)
-    : Chip(game, board)
+    : Chip(game, board, Chip::Factory)
 {
-    setPixelProduction(Pixel::Red);
+    setFactoryOutputProduction(FactoryOutput::Pixel_Red);
     _powerIcon = _game.assets.power.createSprite();
     _arrowIcon = _game.assets.conversionArrow.createSprite();
     _outputIcon = _game.assets.shadedBox.createSprite();
@@ -70,8 +70,35 @@ void Factory::setAlpha(float alpha)
     zf::setAlpha(_outputIcon, alpha);
 }
 
-void Factory::setPixelProduction(Pixel::Type type)
+void Factory::setFactoryOutputProduction(FactoryOutput::Type type)
 { 
     _factoryType = type;
-    _outputIcon.setColor(Pixel::getColor(type));
+    _outputIcon.setColor(FactoryOutput::getColor(type));
+}
+
+void Factory::beginProcessing()
+{
+}
+
+bool Factory::isProcessing()
+{
+    return false;
+}
+
+std::vector<std::pair<FactoryOutput*, zf::Grid> > Factory::getOutputs()
+{
+    std::vector<std::pair<FactoryOutput*, zf::Grid> > outputs;
+    return outputs;
+}
+
+bool Factory::acceptInput(FactoryOutput* output)
+{
+    if(output == 0 || output->getType() != FactoryOutput::Power)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
 }

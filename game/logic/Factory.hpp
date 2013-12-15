@@ -36,9 +36,14 @@ public:
     void setPosition(const sf::Vector2f& position);
     void setAlpha(float alpha);
 
-    void setPixelProduction(Pixel::Type type); 
+    void setFactoryOutputProduction(FactoryOutput::Type type); 
+
+    void beginProcessing();
+    bool isProcessing();
+    bool acceptInput(FactoryOutput* factory);
+    std::vector<std::pair<FactoryOutput*, zf::Grid> > getOutputs();
 protected:
-    Pixel::Type _factoryType;
+    FactoryOutput::Type _factoryType;
 
     sf::Sprite _powerIcon;
     sf::Sprite _arrowIcon;

@@ -39,6 +39,10 @@ public:
     void setPosition(const sf::Vector2f& position);
     void setAlpha(float alpha);
 
+    void beginProcessing();
+    bool isProcessing();
+    bool acceptInput(FactoryOutput* factory);
+    std::vector<std::pair<FactoryOutput*, zf::Grid> > getOutputs();
 private:
     sf::Sprite _westArrow;
     sf::Sprite _eastArrow;

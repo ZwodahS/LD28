@@ -2,16 +2,18 @@
 #include "Board.hpp"
 #include "../Game.hpp"
 #include "../../z_framework/zf_sfml/f_common.hpp"
+#include "../../z_framework/zf_common/f_conversion.hpp"
 const sf::Vector2f Chip::TimerOffset = sf::Vector2f(15, 28);
 const sf::Vector2f Chip::TextBoundOffset = sf::Vector2f(33, 28);
-Chip::Chip(Game& game, Board* board)
-    : _game(game), _board(board), _timeText("9", game.assets.font, 14)
-    , _position(0, 0), _arrows(game)
+Chip::Chip(Game& game, Board* board, ChipType t)
+    : _game(game), _board(board), _timeText(" ", game.assets.font, 14)
+    , _position(0, 0), _arrows(game), type(t), _runLeft(3)
 {
     _background = _game.assets.chipOutline.createSprite();
     _timer = _game.assets.clock.createSprite();
     _textBound = sf::FloatRect(TextBoundOffset.x, TextBoundOffset.y, 18, 13);
     _bound = sf::FloatRect(0, 0, 64, 64);
+    _timeText.setString(zf::toString(_runLeft));
 }
 
 Chip::~Chip()
@@ -86,4 +88,47 @@ void Chip::setArrow(ArrowControl::ArrowType north, ArrowControl::ArrowType east,
     _arrows.setArrow(zf::East, east);
     _arrows.setArrow(zf::South, south);
     _arrows.setArrow(zf::West, west);
+}
+
+const std::vector<FactoryOutput*>& Chip::getInputs()
+{
+    return _inputs;
+}
+
+void Chip::put(FactoryOutput* input)
+{
+    _inputs.push_back(input);
+}
+
+bool Chip::clockDeplete()
+{
+    _runLeft--;
+    _timeText.setString(zf::toString(_runLeft));
+    setPosition(_position);
+    if(_runLeft <= 0)
+    {
+        return true;
+    }    
+    return false;
+}
+
+void Chip::animateDestroy()
+{
+    // todo animate destroy if got time
+}
+
+bool Chip::isAnimating()
+{
+    //Todo animate destruction of chip if got chance
+    return false;
+}
+
+bool Chip::markedForDestruction()
+{
+    return _runLeft <= 0;
+}
+
+bool Chip::acceptInputFrom(zf::Direction direction)
+{
+    return _arrows.hasIn(direction);
 }

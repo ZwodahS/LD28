@@ -28,7 +28,7 @@ const sf::Vector2f Connector::Arrow1Offset = sf::Vector2f(18, 30);
 const sf::Vector2f Connector::Arrow2Offset = sf::Vector2f(25, 30);
 const sf::Vector2f Connector::TransferTextBoundOffset = sf::Vector2f(33, 28);
 Connector::Connector(Game& game, Board* board)
-    : Chip(game, board), _transferSpeed(1), _transferSpeedText("1", game.assets.font, 14)
+    : Chip(game, board, Chip::Connector), _transferSpeed(1), _transferSpeedText("1", game.assets.font, 14)
 {
     _arrow1Sprite = _game.assets.arrow_right.createSprite();
     _arrow2Sprite = _game.assets.arrow_right.createSprite();
@@ -74,4 +74,24 @@ void Connector::setTransferSpeed(int speed)
 {
     _transferSpeed = speed;
     _transferSpeedText.setString(zf::toString(speed));
+}
+
+void Connector::beginProcessing()
+{
+}
+
+bool Connector::isProcessing()
+{
+    return false;
+}
+
+std::vector<std::pair<FactoryOutput*, zf::Grid> > Connector::getOutputs()
+{
+    std::vector<std::pair<FactoryOutput*, zf::Grid> > outputs;
+    return outputs;
+}
+
+bool Connector::acceptInput(FactoryOutput* output)
+{
+    return true;
 }

@@ -78,7 +78,7 @@ namespace zf
          * Do not use this unless necessary.
          */
         sf::Sprite& getSprite();
-
+        bool isAnimating() const;
     private:
         sf::Sprite _sprite;
         AnimationComponent _animator;

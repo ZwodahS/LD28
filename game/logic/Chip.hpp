@@ -22,16 +22,26 @@
  */
 #ifndef _GAME_LOGIC_CHIP_H_
 #define _GAME_LOGIC_CHIP_H_
-#include "Pixel.hpp"
+#include "FactoryOutput.hpp"
 #include "ArrowControl.hpp"
+#include "../../z_framework/zf_common/Grid.hpp"
 class Game;
 class Board;
 class Chip
 {
 public:
+    enum ChipType
+    {
+        PowerStation,
+        Factory,
+        Connector,
+        Combiner,
+        Multiplier,
+        Collector,
+    } type;
     static const sf::Vector2f TimerOffset;
     static const sf::Vector2f TextBoundOffset;
-    Chip(Game& game, Board* board = 0);
+    Chip(Game& game, Board* board , ChipType type);
     virtual ~Chip();
 
     virtual void draw(sf::RenderWindow& window, const sf::Time& delta);
@@ -46,9 +56,22 @@ public:
     virtual void setAlpha(float alpha);
     virtual void setBoard(Board* board);
     void setArrow(ArrowControl::ArrowType north, ArrowControl::ArrowType east, ArrowControl::ArrowType south, ArrowControl::ArrowType west);
+
+    virtual void beginProcessing() = 0;
+    virtual bool isProcessing() = 0;
+    virtual bool acceptInput(FactoryOutput* factory) = 0;
+    bool acceptInputFrom(zf::Direction direction);
+    const std::vector<FactoryOutput*>& getInputs();
+    virtual std::vector<std::pair<FactoryOutput*, zf::Grid> > getOutputs() = 0;
+    void put(FactoryOutput* input);
+    bool clockDeplete();
+    void animateDestroy();
+    bool isAnimating();
+    bool markedForDestruction();
 protected:
     Game& _game;
     Board* _board;
+    int _runLeft;
     sf::Sprite _background;
     sf::Sprite _timer;
     sf::Text _timeText;
@@ -56,6 +79,8 @@ protected:
     sf::Vector2f _position;
     ArrowControl _arrows;
     sf::FloatRect _bound;
+
+    std::vector<FactoryOutput*> _inputs;
 private:
 };
 #endif

@@ -26,6 +26,7 @@
 #include "../../z_framework/zf_common/TwoDSpace.hpp"
 class Chip;
 class Game;
+class FactoryOutput;
 class Board
 {
 public:
@@ -47,6 +48,16 @@ public:
         Draw_Icon,
         Draw_Timer,
     } chipDrawState;
+    
+    enum BoardState
+    {
+        State_Idle,
+        State_Processing,
+        State_MovingObject,
+        State_DestructionOfChip,
+    } boardState;
+
+    void runOnce();
 private:
     Game& _game;
 
@@ -56,5 +67,7 @@ private:
 
     sf::Vector2f chipPosition(int row, int col);
     float _blink;
+
+    std::vector<FactoryOutput*> _factoryOutputs;
 };
 #endif

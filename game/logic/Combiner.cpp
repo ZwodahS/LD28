@@ -21,13 +21,14 @@
  * http://sam.zoy.org/wtfpl/COPYING for more details. 
  */
 #include "Combiner.hpp"
+#include "Board.hpp"
 const sf::Vector2f Combiner::Input1Offset = sf::Vector2f(12, 12);
 const sf::Vector2f Combiner::Input2Offset = sf::Vector2f(12, 25);
 const sf::Vector2f Combiner::Input3Offset = sf::Vector2f(13, 38);
 const sf::Vector2f Combiner::ArrowOffset = sf::Vector2f(25, 29);
 const sf::Vector2f Combiner::OutputOffset = sf::Vector2f(40, 27);
 Combiner::Combiner(Game& game, Board* board)
-    : Chip(game, board)
+    : Chip(game, board, Chip::Combiner)
 {
     _input1 = _game.assets.shadedBox.createSprite();
     _input2 = _game.assets.shadedBox.createSprite();
@@ -43,11 +44,14 @@ Combiner::~Combiner()
 void Combiner::draw(sf::RenderWindow& window, const sf::Time& delta)
 {
     Chip::draw(window, delta);
-    window.draw(_input1);
-    window.draw(_input2);
-    window.draw(_input3);
-    window.draw(_output);
-    window.draw(_conversionArrow);
+    if(_board == 0 || _board->chipDrawState == Board::Draw_Icon)
+    {
+        window.draw(_input1);
+        window.draw(_input2);
+        window.draw(_input3);
+        window.draw(_output);
+        window.draw(_conversionArrow);
+    }
 }
 
 void Combiner::update(sf::RenderWindow& window, const sf::Time& delta)
@@ -75,13 +79,41 @@ void Combiner::setAlpha(float alpha)
     zf::setAlpha(_conversionArrow, alpha);
 }
 
-void Combiner::setConversion(Pixel::Type in1, Pixel::Type in2, Pixel::Type output)
+void Combiner::setConversion(FactoryOutput::Type in1, FactoryOutput::Type in2, FactoryOutput::Type output)
 {
     _type1 = in1;
-    _input1.setColor(Pixel::getColor(in1));
+    _input1.setColor(FactoryOutput::getColor(in1));
     _type2 = in2;
-    _input2.setColor(Pixel::getColor(in2));
+    _input2.setColor(FactoryOutput::getColor(in2));
     _outputType = output;
-    _output.setColor(Pixel::getColor(_outputType));
+    _output.setColor(FactoryOutput::getColor(_outputType));
 }
 
+void Combiner::beginProcessing()
+{
+}
+
+bool Combiner::isProcessing()
+{
+    return false;
+}
+
+std::vector<std::pair<FactoryOutput*, zf::Grid> > Combiner::getOutputs()
+{
+    std::vector<std::pair<FactoryOutput*, zf::Grid> > outputs;
+    return outputs;
+}
+
+bool Combiner::acceptInput(FactoryOutput* output)
+{
+    if(output == 0 || output->getType() == FactoryOutput::None)
+    {
+        return false;
+    }
+    if(output->getType() == FactoryOutput::Power || 
+            output->getType() == _type1 || output->getType() == _type2)
+    {
+        return true;
+    }
+    return false;
+}

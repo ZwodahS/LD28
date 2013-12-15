@@ -29,7 +29,7 @@ const sf::Vector2f Collector::WestArrowOffset = sf::Vector2f(16, 29);
 const sf::Vector2f Collector::PixelOffset = sf::Vector2f(27, 27);
 const sf::Color Collector::ArrowColor = sf::Color(0, 255, 0);
 Collector::Collector(Game& game, Board* board)
-    : Chip(game, board)
+    : Chip(game, board, Chip::Collector)
 {
     _westArrow = _game.assets.arrow_right.createSprite();
     _eastArrow = _game.assets.arrow_left.createSprite();
@@ -83,3 +83,26 @@ void Collector::setAlpha(float alpha)
     zf::setAlpha(_pixel, alpha);
 }
 
+void Collector::beginProcessing()
+{
+}
+
+bool Collector::isProcessing()
+{
+    return false;
+}
+
+std::vector<std::pair<FactoryOutput*, zf::Grid> > Collector::getOutputs()
+{
+    std::vector<std::pair<FactoryOutput*, zf::Grid> > outputs;
+    return outputs;
+}
+
+bool Collector::acceptInput(FactoryOutput* output)
+{
+    if(output != 0 && output->getType() != FactoryOutput::Power && output->getType() != FactoryOutput::None)
+    {
+        return true;
+    }
+    return false;
+}
