@@ -22,7 +22,6 @@
  */
 #ifndef _ZF_COMMON_DIRECTION_H_
 #define _ZF_COMMON_DIRECTION_H_
-#endif
 /*
  * This is just a simple enum used by many code in the framework
  */

@@ -20,18 +20,47 @@
  * To Public License, Version 2, as published by Sam Hocevar. See
  * http://sam.zoy.org/wtfpl/COPYING for more details. 
  */
-#include "Chip.hpp"
-class PowerStation : public Chip
+#ifndef _GAME_LOGIC_ARROWCONTROL_H_
+#define _GAME_LOGIC_ARROWCONTROL_H_
+#include <SFML/Graphics.hpp>
+#include "../../z_framework/zf_common/Direction.hpp"
+#include "../Game.hpp"
+class ArrowControl
 {
 public:
-    static const sf::Vector2f PowerIconOffset;
-    PowerStation(Game& game, Board& board);
-    ~PowerStation();
-
-    void draw(sf::RenderWindow& window, const sf::Time& delta);
-    void update(sf::RenderWindow& window, const sf::Time& delta);
+    const static sf::Vector2f NorthArrowOffset;
+    const static sf::Vector2f SouthArrowOffset;
+    const static sf::Vector2f EastArrowOffset;
+    const static sf::Vector2f WestArrowOffset;
+    enum ArrowType
+    {
+        None,
+        Out,
+        In,
+    };
+    ArrowControl(Game& game);
+    
+    /**
+     * Return reference for chaining
+     */
+    ArrowControl& setArrow(zf::Direction direction, ArrowType type);
+    void rotate();
 
     void setPosition(const sf::Vector2f& position);
-protected:
-    sf::Sprite _icon;
+    void draw(sf::RenderWindow& window, const sf::Time& delta);
+    void update(sf::RenderWindow& window, const sf::Time& delta);
+private:
+    Game& _game;
+    ArrowType _north;
+    ArrowType _east;
+    ArrowType _south;
+    ArrowType _west;
+    
+    sf::Sprite _northSprite;
+    sf::Sprite _eastSprite;
+    sf::Sprite _southSprite;
+    sf::Sprite _westSprite;
+
+    sf::Vector2f _position; // the top left position
 };
+#endif

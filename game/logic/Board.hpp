@@ -33,11 +33,14 @@ public:
 
     void draw(sf::RenderWindow& window, const sf::Time& delta);
     void update(sf::RenderWindow& window, const sf::Time& delta);
+    void inputs(sf::RenderWindow& window, const sf::Time& delta);
 private:
     Game& _game;
 
     zf::TwoDSpace<Chip*> _chips;
 
     std::vector<sf::VertexArray> _lines;
+
+    sf::Vector2f chipPosition(int row, int col);
 };
 #endif

@@ -23,16 +23,37 @@
 #ifndef _GAME_LOGIC_CHIP_H_
 #define _GAME_LOGIC_CHIP_H_
 #include "Pixel.hpp"
+#include "ArrowControl.hpp"
+class Game;
 class Board;
 class Chip
 {
 public:
-    Chip(Board& board);
+    static const sf::Vector2f TimerOffset;
+    static const sf::Vector2f TextBoundOffset;
+    static const float BlinkInterval;
+    Chip(Game& game, Board& board);
     virtual ~Chip();
 
-    virtual void draw(sf::RenderWindow& window, const sf::Time& delta) = 0;
-    virtual void update(sf::RenderWindow& window, const sf::Time& delta) = 0;
+    virtual void draw(sf::RenderWindow& window, const sf::Time& delta);
+    virtual void update(sf::RenderWindow& window, const sf::Time& delta);
+    virtual void setPosition(const sf::Vector2f& position);
+    virtual void rotate();
 protected:
+    Game& _game;
     Board& _board;
+    sf::Sprite _background;
+    sf::Sprite _timer;
+    sf::Text _timeText;
+    sf::FloatRect _textBound;
+    sf::Vector2f _position;
+    ArrowControl _arrows;
+    enum State
+    {
+        Draw_Icon,
+        Draw_Timer,
+    } _state;
+private:
+    float _blink;
 };
 #endif

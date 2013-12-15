@@ -24,7 +24,7 @@
 class Factory : public Chip 
 {
 public:
-    Factory(Board& board);
+    Factory(Game& game, Board& board);
     ~Factory();
 protected:
 };

@@ -21,8 +21,8 @@
  * http://sam.zoy.org/wtfpl/COPYING for more details. 
  */
 #include "Combiner.hpp"
-Combiner::Combiner(Board& board)
-    : Chip(board)
+Combiner::Combiner(Game& game, Board& board)
+    : Chip(game, board)
 {
 }
 

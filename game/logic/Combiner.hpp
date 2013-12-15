@@ -24,6 +24,6 @@
 class Combiner : public Chip 
 {
 public:
-    Combiner(Board& board);
+    Combiner(Game& game, Board& board);
     ~Combiner();
 };

@@ -21,8 +21,8 @@
  * http://sam.zoy.org/wtfpl/COPYING for more details. 
  */
 #include "Factory.hpp"
-Factory::Factory(Board& board)
-    : Chip(board)
+Factory::Factory(Game& game, Board& board)
+    : Chip(game, board)
 {
 }
 

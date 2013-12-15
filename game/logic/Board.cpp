@@ -1,10 +1,11 @@
 #include "Board.hpp"
 #include "../Game.hpp"
 #include "Chip.hpp"
+#include "PowerStation.hpp"
 Board::Board(Game& game)
-    : _game(game), _chips(10, 10, 0)
+    : _game(game), _chips(10, 10, 0) 
 {
-    sf::Color lineColor = sf::Color(150,150,150);
+    sf::Color lineColor = sf::Color(50,50,50);
     for(int row = 0 ; row < 11 ; row ++)
     {
         sf::VertexArray line = sf::VertexArray(sf::Lines, 2);
@@ -23,6 +24,10 @@ Board::Board(Game& game)
         line[1].color = lineColor;
         _lines.push_back(line);
     }
+
+    PowerStation* station = new PowerStation(game, *this);
+    _chips.set(4,4,station);
+    (*station).setPosition(chipPosition(4,4));
 }
 
 
@@ -50,4 +55,9 @@ void Board::update(sf::RenderWindow& window, const sf::Time& delta)
             (*(it.get())).update(window, delta);
         }
     }
+}
+
+sf::Vector2f Board::chipPosition(int row, int col)
+{
+    return sf::Vector2f(col * 65 + 21, row * 65 + 71);
 }

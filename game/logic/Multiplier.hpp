@@ -24,7 +24,7 @@
 class Multiplier : public Chip
 {
 public:
-    Multiplier(Board& board);
+    Multiplier(Game& game, Board& board);
     ~Multiplier();
 };
 

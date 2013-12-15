@@ -24,7 +24,7 @@
 class Connector : public Chip
 {
 public:
-    Connector(Board& board);
+    Connector(Game& game, Board& board);
     ~Connector();
 protected:
 };

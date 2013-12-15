@@ -21,8 +21,8 @@
  * http://sam.zoy.org/wtfpl/COPYING for more details. 
  */
 #include "Collector.hpp"
-Collector::Collector(Board& board)
-    : Chip(board)
+Collector::Collector(Game& game, Board& board)
+    : Chip(game, board)
 {
 }
 
