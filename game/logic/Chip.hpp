@@ -31,7 +31,6 @@ class Chip
 public:
     static const sf::Vector2f TimerOffset;
     static const sf::Vector2f TextBoundOffset;
-    static const float BlinkInterval;
     Chip(Game& game, Board& board);
     virtual ~Chip();
 
@@ -48,12 +47,6 @@ protected:
     sf::FloatRect _textBound;
     sf::Vector2f _position;
     ArrowControl _arrows;
-    enum State
-    {
-        Draw_Icon,
-        Draw_Timer,
-    } _state;
 private:
-    float _blink;
 };
 #endif

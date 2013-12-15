@@ -2,8 +2,9 @@
 #include "../Game.hpp"
 #include "Chip.hpp"
 #include "PowerStation.hpp"
+const float Board::BlinkInterval = 2;
 Board::Board(Game& game)
-    : _game(game), _chips(10, 10, 0) 
+    : _game(game), _chips(10, 10, 0), _blink(BlinkInterval), chipDrawState(Draw_Icon)
 {
     sf::Color lineColor = sf::Color(50,50,50);
     for(int row = 0 ; row < 11 ; row ++)
@@ -28,6 +29,10 @@ Board::Board(Game& game)
     PowerStation* station = new PowerStation(game, *this);
     _chips.set(4,4,station);
     (*station).setPosition(chipPosition(4,4));
+
+    station = new PowerStation(game, *this);
+    _chips.set(5,5,station);
+    (*station).setPosition(chipPosition(5,5));
 }
 
 
@@ -54,6 +59,12 @@ void Board::update(sf::RenderWindow& window, const sf::Time& delta)
         {
             (*(it.get())).update(window, delta);
         }
+    }
+    _blink -= delta.asSeconds();
+    if(_blink < 0)
+    {
+        _blink += BlinkInterval;
+        chipDrawState = chipDrawState == Draw_Icon ? Draw_Timer : Draw_Icon;
     }
 }
 

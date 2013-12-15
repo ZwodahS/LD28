@@ -29,11 +29,17 @@ class Game;
 class Board
 {
 public:
+    static const float BlinkInterval;
     Board(Game& game);
 
     void draw(sf::RenderWindow& window, const sf::Time& delta);
     void update(sf::RenderWindow& window, const sf::Time& delta);
     void inputs(sf::RenderWindow& window, const sf::Time& delta);
+    enum ChipDrawState
+    {
+        Draw_Icon,
+        Draw_Timer,
+    } chipDrawState;
 private:
     Game& _game;
 
@@ -42,5 +48,6 @@ private:
     std::vector<sf::VertexArray> _lines;
 
     sf::Vector2f chipPosition(int row, int col);
+    float _blink;
 };
 #endif

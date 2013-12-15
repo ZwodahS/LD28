@@ -21,6 +21,7 @@
  * http://sam.zoy.org/wtfpl/COPYING for more details. 
  */
 #include "PowerStation.hpp"
+#include "Board.hpp"
 const sf::Vector2f PowerStation::PowerIconOffset = sf::Vector2f(27,28);
 PowerStation::PowerStation(Game& game, Board& board)
     : Chip(game, board)
@@ -40,7 +41,7 @@ PowerStation::~PowerStation()
 void PowerStation::draw(sf::RenderWindow& window, const sf::Time& delta)
 {
     Chip::draw(window, delta);
-    if(_state == Draw_Icon)
+    if(_board.chipDrawState == Board::Draw_Icon)
     {
         window.draw(_icon);
     }
