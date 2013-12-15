@@ -39,6 +39,8 @@ namespace zf
         void draw(sf::RenderWindow& window, const sf::Time& delta);
         void update(sf::RenderWindow& window, const sf::Time& delta);
         bool inputs(sf::RenderWindow& window, const sf::Time& delta, const zf::Mouse& mouse);
+
+        void setString(std::string string);
     private:
         sf::VertexArray _border;
         sf::VertexArray _background;

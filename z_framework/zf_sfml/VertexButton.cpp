@@ -92,4 +92,10 @@ namespace zf
         _hovered = _bound.contains(mousePos);
         return _hovered;
     }
+
+    void VertexButton::setString(std::string str)
+    {
+        _text.setString(str);
+        zf::alignText(_text, _bound, AlignmentData());
+    }
 }

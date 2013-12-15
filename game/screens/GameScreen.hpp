@@ -4,6 +4,8 @@
 #include "../logic/Board.hpp"
 #include "../logic/Inventory.hpp"
 #include "../logic/ChipFactory.hpp"
+#include "../logic/Player.hpp"
+#include "../logic/Shop.hpp"
 #include "ChipDetail.hpp"
 #include "../../z_framework/zf_sfml/VertexButton.hpp"
 class GameScreen : public Screen
@@ -26,6 +28,8 @@ private:
     Inventory _inventory;
     ChipFactory _factory;
     ChipDetail _detail;
+    Player _player;
+    Shop _shop;
 
     zf::VertexButton _runFactory;
 };

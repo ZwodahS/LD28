@@ -3,6 +3,7 @@
 const sf::FloatRect GameScreen::RunFactoryButtonBound = sf::FloatRect(710, 900, 230, 40);
 GameScreen::GameScreen(Game& game)
     : Screen(game), _board(game), _inventory(game), _factory(game), _detail(_game)
+    , _player(game), _shop(game, _player)
 {
     _inventory.addChip(_factory.createPowerStation(ChipFactory::Uncommon));
     _inventory.addChip(_factory.createCombiner(ChipFactory::Rare));
@@ -25,6 +26,8 @@ void GameScreen::draw(sf::RenderWindow& window, const sf::Time& delta)
     _board.drawSelectedChip(window, delta, _inventory.getSelectedChip());
     _runFactory.draw(window, delta);
     _detail.draw(window, delta);
+    _shop.draw(window, delta);
+    _player.draw(window, delta);
 }
 
 void GameScreen::update(sf::RenderWindow& window, const sf::Time& delta)
@@ -56,6 +59,7 @@ void GameScreen::inputs(sf::RenderWindow& window, const sf::Time& delta)
             _board.runOnce();
         }
     }
+    _shop.inputs(window, delta);
 }
 void GameScreen::textInput(char c)
 {
