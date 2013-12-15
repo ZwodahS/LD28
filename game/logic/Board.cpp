@@ -107,7 +107,7 @@ void Board::update(sf::RenderWindow& window, const sf::Time& delta)
                         {
                             delete (*it2).first;
                         }
-                        if(chip != 0 && chip->acceptInputFrom(inputDirection) && chip->acceptInput((*it2).first))
+                        else if(chip != 0 && chip->acceptInputFrom(inputDirection) && chip->acceptInput((*it2).first))
                         {
                             (*(*it2).first).moveTo( FactoryOutputOffset + startingDestination
                                                  , FactoryOutputOffset + endingDestination
@@ -214,6 +214,19 @@ void Board::inputs(sf::RenderWindow& window, const sf::Time& delta)
 {
 }
 
+Chip* Board::getChip(sf::Vector2f position)
+{
+    zf::Grid grid = toGrid(position);
+    if(inRange(grid))
+    {
+        return _chips.get(grid);
+    }
+    else
+    {
+        return 0;
+    }
+}
+
 sf::Vector2f Board::chipPosition(int row, int col)
 {
     return sf::Vector2f(col * 65 + 21, row * 65 + 71);
@@ -281,4 +294,30 @@ void Board::runOnce()
             (*(it.get())).beginProcessing();
         }
     }
+}
+
+std::vector<FactoryOutput*> Board::getCollectorGoods()
+{
+    std::vector<FactoryOutput*> goods = _collectorGoods;
+    _collectorGoods.clear();
+    return goods;
+}
+
+
+void Board::collect(FactoryOutput* goods)
+{
+    _collectorGoods.push_back(goods);
+}
+
+int Board::getChipCount()
+{
+    int count;
+    for(zf::TwoDSpace<Chip*>::Iterator it = _chips.iteratesColRow(); !(it.end()) ; ++it)
+    {
+        if(it.get() != 0)
+        {
+            count++;
+        }
+    }
+    return count;
 }

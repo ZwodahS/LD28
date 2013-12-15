@@ -40,5 +40,4 @@ public:
     std::vector<std::pair<FactoryOutput*, zf::Grid> > getOutputs();
 protected:
     sf::Sprite _icon;
-    std::vector<std::pair<FactoryOutput*, zf::Grid> > _outputs;
 };

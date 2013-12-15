@@ -132,6 +132,15 @@ void ArrowControl::rotate()
     setArrow(zf::South, temp);
 }
 
+void ArrowControl::rotateAnti()
+{
+    ArrowType temp = _east; // store the east value.
+    setArrow(zf::East, _south);
+    setArrow(zf::South, _west);
+    setArrow(zf::West, _north);
+    setArrow(zf::North, temp);
+}
+
 void ArrowControl::draw(sf::RenderWindow& window, const sf::Time& delta)
 {
     window.draw(_northSprite);

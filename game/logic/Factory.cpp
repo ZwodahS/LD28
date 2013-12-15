@@ -78,17 +78,42 @@ void Factory::setFactoryOutputProduction(FactoryOutput::Type type)
 
 void Factory::beginProcessing()
 {
+    FactoryOutput* output = 0;
+    for(std::vector<FactoryOutput*>::iterator it = _inputs.begin() ; it != _inputs.end() ; ++it)
+    {
+        if((**it).getType() == FactoryOutput::Power)
+        {
+            FactoryOutput* o = *it;
+            _inputs.erase(it);
+            delete o;
+            output = new FactoryOutput(_game, _factoryType);
+            break;
+        }
+    }
+    if(output != 0)
+    {
+        if(_arrows.hasOut(zf::North))
+        {
+            _outputs.push_back(std::pair<FactoryOutput*, zf::Grid>(output, zf::Grid(-1, 0)));
+        }
+        else if(_arrows.hasOut(zf::East))
+        {
+            _outputs.push_back(std::pair<FactoryOutput*, zf::Grid>(output, zf::Grid(0, 1)));
+        }
+        else if(_arrows.hasOut(zf::South))
+        {
+            _outputs.push_back(std::pair<FactoryOutput*, zf::Grid>(output, zf::Grid(1, 0)));
+        }
+        else if(_arrows.hasOut(zf::West))
+        {
+            _outputs.push_back(std::pair<FactoryOutput*, zf::Grid>(output, zf::Grid(0, -1)));
+        }
+    }
 }
 
 bool Factory::isProcessing()
 {
     return false;
-}
-
-std::vector<std::pair<FactoryOutput*, zf::Grid> > Factory::getOutputs()
-{
-    std::vector<std::pair<FactoryOutput*, zf::Grid> > outputs;
-    return outputs;
 }
 
 bool Factory::acceptInput(FactoryOutput* output)

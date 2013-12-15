@@ -42,7 +42,7 @@ public:
     void beginProcessing();
     bool isProcessing();
     bool acceptInput(FactoryOutput* factory);
-    std::vector<std::pair<FactoryOutput*, zf::Grid> > getOutputs();
+    void put(FactoryOutput* output);
 private:
     sf::Sprite _westArrow;
     sf::Sprite _eastArrow;

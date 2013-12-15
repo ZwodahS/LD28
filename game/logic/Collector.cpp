@@ -83,6 +83,18 @@ void Collector::setAlpha(float alpha)
     zf::setAlpha(_pixel, alpha);
 }
 
+void Collector::put(FactoryOutput* output)
+{
+    if(_board != 0)
+    {
+        _board->collect(output);
+    }
+    else
+    {
+        delete output;
+    }
+}
+
 void Collector::beginProcessing()
 {
 }
@@ -90,12 +102,6 @@ void Collector::beginProcessing()
 bool Collector::isProcessing()
 {
     return false;
-}
-
-std::vector<std::pair<FactoryOutput*, zf::Grid> > Collector::getOutputs()
-{
-    std::vector<std::pair<FactoryOutput*, zf::Grid> > outputs;
-    return outputs;
 }
 
 bool Collector::acceptInput(FactoryOutput* output)

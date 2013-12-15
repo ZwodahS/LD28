@@ -48,4 +48,5 @@ protected:
     sf::Sprite _powerIcon;
     sf::Sprite _arrowIcon;
     sf::Sprite _outputIcon;
+
 };

@@ -52,6 +52,7 @@ public:
     virtual void update(sf::RenderWindow& window, const sf::Time& delta);
     virtual void setPosition(const sf::Vector2f& position);
     virtual void rotate();
+    virtual void rotateAnti();
     virtual const sf::FloatRect& getBound();
     virtual void setAlpha(float alpha);
     virtual void setBoard(Board* board);
@@ -62,8 +63,8 @@ public:
     virtual bool acceptInput(FactoryOutput* factory) = 0;
     bool acceptInputFrom(zf::Direction direction);
     const std::vector<FactoryOutput*>& getInputs();
-    virtual std::vector<std::pair<FactoryOutput*, zf::Grid> > getOutputs() = 0;
-    void put(FactoryOutput* input);
+    std::vector<std::pair<FactoryOutput*, zf::Grid> > getOutputs();
+    virtual void put(FactoryOutput* input);
     bool clockDeplete();
     void animateDestroy();
     bool isAnimating();
@@ -83,6 +84,7 @@ protected:
     sf::FloatRect _bound;
 
     std::vector<FactoryOutput*> _inputs;
+    std::vector<std::pair<FactoryOutput*, zf::Grid> > _outputs;
 private:
 };
 #endif

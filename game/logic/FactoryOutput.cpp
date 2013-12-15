@@ -23,6 +23,7 @@
 #include "FactoryOutput.hpp"
 #include "../../z_framework/zf_sfml/animations/CompositeInstruction.hpp"
 #include "../Game.hpp"
+#include "../../z_framework/zf_sfml/f_common.hpp"
 FactoryOutput::FactoryOutput(Game& game, Type type)
     : _game(game), markedForDestruction(false)
 {
@@ -49,6 +50,7 @@ void FactoryOutput::setType(const FactoryOutput::Type& type)
     else
     {
         _sprite = zf::AnimatableSprite(_game.assets.shadedBox.createSprite());
+        _sprite.setColor(FactoryOutput::getColor(type));
     }
 }
 
@@ -57,6 +59,7 @@ void FactoryOutput::moveTo(sf::Vector2f startPos, sf::Vector2f endPos, int delay
     _sprite.setScale(1, 1);
     _sprite.setPosition(startPos);
     _sprite.setScale(0.1, 0.1);
+    _sprite.setAlpha(255);
     _sprite.animateComposite(_sprite.createCompositeAnimation(true)
             .wait(delay * 0.6 + 0.1)
             .scale(0.1, 1, 0.5)
@@ -70,6 +73,7 @@ void FactoryOutput::moveToAndDestroy(sf::Vector2f startPos, sf::Vector2f endPos,
     _sprite.setScale(1, 1);
     _sprite.setPosition(startPos);
     _sprite.setScale(0.1, 0.1);
+    _sprite.setAlpha(255);
     _sprite.animateComposite(_sprite.createCompositeAnimation(true)
             .wait(delay * 0.6 + 0.1)
             .scale(0.1, 1, 0.5)
@@ -90,4 +94,9 @@ void FactoryOutput::draw(sf::RenderWindow& window, const sf::Time& delta)
 bool FactoryOutput::isAnimating()
 {
     return _sprite.isAnimating();
+}
+
+sf::Sprite FactoryOutput::getSprite()
+{
+    return _sprite.getSprite();
 }

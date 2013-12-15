@@ -100,6 +100,13 @@ void Shop::updateValues()
     _stock_teal.setString(zf::toString(_player.tealPixel));
     _stock_magenta.setString(zf::toString(_player.magentaPixel));
     _stock_white.setString(zf::toString(_player.whitePixel));
+    _button_redSell.setString("Sell : " + zf::toString(_price_red));
+    _button_greenSell.setString("Sell : " + zf::toString(_price_green));
+    _button_blueSell.setString("Sell : " + zf::toString(_price_blue));
+    _button_yellowSell.setString("Sell : " + zf::toString(_price_yellow));
+    _button_tealSell.setString("Sell : " + zf::toString(_price_teal));
+    _button_magentaSell.setString("Sell : " + zf::toString(_price_magenta));
+    _button_whiteSell.setString("Sell : " + zf::toString(_price_white));
     updatePositions();
 }
 

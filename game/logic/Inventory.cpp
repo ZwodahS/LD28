@@ -36,7 +36,8 @@ void Inventory::update(sf::RenderWindow& window, const sf::Time& delta)
 
 void Inventory::inputs(sf::RenderWindow& window, const sf::Time& delta)
 {
-    zf::Input::processKey(_rotateKey, sf::Keyboard::isKeyPressed(sf::Keyboard::Space), delta.asSeconds());
+    zf::Input::processKey(_rotateAntiKey, sf::Keyboard::isKeyPressed(sf::Keyboard::Q), delta.asSeconds());
+    zf::Input::processKey(_rotateKey, sf::Keyboard::isKeyPressed(sf::Keyboard::E), delta.asSeconds());
     if(_game.mouse.left.thisReleased)
     {
         sf::Vector2f mousePos = _game.mouse.getWorldPosition(window);
@@ -66,6 +67,13 @@ void Inventory::inputs(sf::RenderWindow& window, const sf::Time& delta)
         if(_currentSelectedChip != 0)
         {
             _currentSelectedChip->rotate();
+        }
+    }
+    else if(_rotateAntiKey.thisReleased)
+    {
+        if(_currentSelectedChip != 0)
+        {
+            _currentSelectedChip->rotateAnti();
         }
     }
 }

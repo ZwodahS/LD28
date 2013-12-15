@@ -8,6 +8,7 @@
 #include "../logic/Shop.hpp"
 #include "ChipDetail.hpp"
 #include "../../z_framework/zf_sfml/VertexButton.hpp"
+#include "../../z_framework/zf_common/InputState.hpp"
 class GameScreen : public Screen
 {
 public:
@@ -25,6 +26,7 @@ public:
     void placeChipOnGrid(zf::Grid grid);
 
     void chipsBought(ChipFactory::Rarity rarity, int amount);
+
 private:
     Board _board;
     Inventory _inventory;
@@ -34,5 +36,6 @@ private:
     Shop _shop;
 
     zf::VertexButton _runFactory;
+    zf::InputState _runFactoryButton;
 };
 #endif

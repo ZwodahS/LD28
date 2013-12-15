@@ -78,17 +78,45 @@ void Connector::setTransferSpeed(int speed)
 
 void Connector::beginProcessing()
 {
+    zf::Grid direction;
+    if(_arrows.hasOut(zf::North))
+    {
+        direction = zf::Grid(-1, 0);
+    }
+    else if(_arrows.hasOut(zf::East))
+    {
+        direction = zf::Grid(0, 1);
+    }
+    else if(_arrows.hasOut(zf::South))
+    {
+        direction = zf::Grid(1, 0);
+    }
+    else if(_arrows.hasOut(zf::West))
+    {
+        direction = zf::Grid(0, -1);
+    }
+    else
+    {
+        return;
+    }
+    for(int i = 0 ; i < _transferSpeed; i++)
+    {
+        if(_inputs.size() > 0)
+        {
+            FactoryOutput* out = _inputs[0];
+            _inputs.erase(_inputs.begin());
+            _outputs.push_back(std::pair<FactoryOutput*, zf::Grid>(out, direction));
+        }
+        else
+        {
+            break;
+        }
+    }
 }
 
 bool Connector::isProcessing()
 {
     return false;
-}
-
-std::vector<std::pair<FactoryOutput*, zf::Grid> > Connector::getOutputs()
-{
-    std::vector<std::pair<FactoryOutput*, zf::Grid> > outputs;
-    return outputs;
 }
 
 bool Connector::acceptInput(FactoryOutput* output)

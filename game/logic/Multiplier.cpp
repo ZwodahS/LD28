@@ -79,17 +79,67 @@ void Multiplier::setAlpha(float alpha)
 
 void Multiplier::beginProcessing()
 {
+    zf::Grid direction;
+    if(_arrows.hasOut(zf::North))
+    {
+        direction = zf::Grid(-1, 0);
+    }
+    else if(_arrows.hasOut(zf::East))
+    {
+        direction = zf::Grid(0, 1);
+    }
+    else if(_arrows.hasOut(zf::South))
+    {
+        direction = zf::Grid(1, 0);
+    }
+    else if(_arrows.hasOut(zf::West))
+    {
+        direction = zf::Grid(0, -1);
+    }
+    else
+    {
+        return;
+    }
+    FactoryOutput* power = 0;
+    FactoryOutput* duplicateTarget = 0;
+    for(std::vector<FactoryOutput*>::iterator it = _inputs.begin() ; it != _inputs.end() ; ++it)
+    {
+        if((**it).getType() == FactoryOutput::Power)
+        {
+            if(power == 0)
+            {
+                power = *it;
+            }
+        }
+        else
+        {
+            if(duplicateTarget == 0)
+            {
+                duplicateTarget = *it;
+            }
+        }
+    }
+    if(power != 0 && duplicateTarget != 0)
+    {
+        for(std::vector<FactoryOutput*>::iterator it = _inputs.begin() ; it != _inputs.end() ; )
+        {    
+            if(*it == power || *it == duplicateTarget)
+            {
+                it = _inputs.erase(it);
+                continue;
+            }
+            ++it;
+        }
+        delete power;
+        _outputs.push_back(std::pair<FactoryOutput*, zf::Grid>(duplicateTarget, direction));
+        _outputs.push_back(std::pair<FactoryOutput*, zf::Grid>(new FactoryOutput(_game, duplicateTarget->getType()), direction));
+    }
+    
 }
 
 bool Multiplier::isProcessing()
 {
     return false;
-}
-
-std::vector<std::pair<FactoryOutput*, zf::Grid> > Multiplier::getOutputs()
-{
-    std::vector<std::pair<FactoryOutput*, zf::Grid> > outputs;
-    return outputs;
 }
 
 bool Multiplier::acceptInput(FactoryOutput* output)

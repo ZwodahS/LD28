@@ -39,6 +39,7 @@ public:
     void drawSelectedChip(sf::RenderWindow& window, const sf::Time& delta, Chip* currentChip);
     void update(sf::RenderWindow& window, const sf::Time& delta);
     void inputs(sf::RenderWindow& window, const sf::Time& delta);
+    Chip* getChip(sf::Vector2f position);
     bool canPlaceChip(const zf::Grid& grid);
     bool inRange(const zf::Grid& grid);
     void placeChip(Chip* chip, const zf::Grid& grid);
@@ -58,6 +59,9 @@ public:
     } boardState;
 
     void runOnce();
+    std::vector<FactoryOutput*> getCollectorGoods();
+    void collect(FactoryOutput* output);
+    int getChipCount();
 private:
     Game& _game;
 
@@ -69,5 +73,6 @@ private:
     float _blink;
 
     std::vector<FactoryOutput*> _factoryOutputs;
+    std::vector<FactoryOutput*> _collectorGoods;
 };
 #endif

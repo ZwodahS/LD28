@@ -43,7 +43,6 @@ public:
     void beginProcessing();
     bool isProcessing();
     bool acceptInput(FactoryOutput* factory);
-    std::vector<std::pair<FactoryOutput*, zf::Grid> > getOutputs();
 private:
     sf::Sprite _conversionArrow;
     sf::Sprite _input1;

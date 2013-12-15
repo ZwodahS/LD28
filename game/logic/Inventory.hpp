@@ -33,5 +33,6 @@ private:
     void setSelectionBound(sf::FloatRect bound);
 
     zf::InputState _rotateKey;
+    zf::InputState _rotateAntiKey;
 };
 #endif

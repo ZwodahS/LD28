@@ -69,6 +69,8 @@ public:
             case None : return sf::Color(0, 0, 0);
         }
     }
+
+    sf::Sprite getSprite();
 private:
     
     Game& _game;

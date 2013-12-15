@@ -1,16 +1,14 @@
 #include "GameScreen.hpp"
 #include "../Game.hpp"
+#include "../../z_framework/zf_common/f_inputs.hpp"
 const sf::FloatRect GameScreen::RunFactoryButtonBound = sf::FloatRect(710, 900, 230, 40);
 GameScreen::GameScreen(Game& game)
     : Screen(game), _board(game), _inventory(game), _factory(game), _detail(_game)
     , _player(game), _shop(game, _player, *this)
 {
-    _inventory.addChip(_factory.createPowerStation(ChipFactory::Uncommon));
-    _inventory.addChip(_factory.createCombiner(ChipFactory::Rare));
-    _inventory.addChip(_factory.createMultiplier(ChipFactory::Uncommon));
-    _inventory.addChip(_factory.createConnector(ChipFactory::Uncommon));
+    _inventory.addChip(_factory.createPowerStation(ChipFactory::Common));
     _inventory.addChip(_factory.createFactory(ChipFactory::Common));
-    _inventory.addChip(_factory.createCollector(ChipFactory::Uncommon));
+    _inventory.addChip(_factory.createCollector(ChipFactory::Common));
     sf::Text text = sf::Text("Run Factory", _game.assets.font, 14);
     _runFactory = zf::VertexButton(sf::Color(0,255,0), sf::Color(0, 100, 0), RunFactoryButtonBound, text);
 }
@@ -35,11 +33,19 @@ void GameScreen::update(sf::RenderWindow& window, const sf::Time& delta)
     _board.update(window, delta);
     _inventory.draw(window, delta);
     _detail.setPosition(_game.mouse.getWorldPosition(window));
+    std::vector<FactoryOutput*> output = _board.getCollectorGoods();
+    for(std::vector<FactoryOutput*>::iterator it = output.begin() ; it != output.end() ; ++it)
+    {
+        _player.collect(*it);
+        _shop.updateValues();
+    }
 }
 void GameScreen::inputs(sf::RenderWindow& window, const sf::Time& delta)
 {
+    zf::Input::processKey(_runFactoryButton, sf::Keyboard::isKeyPressed(sf::Keyboard::Space), delta.asSeconds());
     _board.inputs(window, delta);
     _inventory.inputs(window, delta);
+    sf::Vector2f mousePos = _game.mouse.getWorldPosition(window);
     if(_game.mouse.left.thisReleased)
     {
         Chip* currentChip = _inventory.getSelectedChip();
@@ -52,11 +58,12 @@ void GameScreen::inputs(sf::RenderWindow& window, const sf::Time& delta)
             }
         }
     }
-    if(_runFactory.inputs(window, delta, _game.mouse))
+    if( (_runFactory.inputs(window, delta, _game.mouse) && _game.mouse.left.thisReleased) || _runFactoryButton.thisReleased)
     {
-        if(_game.mouse.left.thisReleased)
+        _board.runOnce();
+        if(_board.getChipCount() > 2)
         {
-            _board.runOnce();
+            _shop.simulatePriceMovement();
         }
     }
     _shop.inputs(window, delta);

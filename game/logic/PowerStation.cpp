@@ -87,13 +87,6 @@ bool PowerStation::isProcessing()
     return false;
 }
 
-std::vector<std::pair<FactoryOutput*, zf::Grid> > PowerStation::getOutputs()
-{
-    std::vector<std::pair<FactoryOutput*, zf::Grid> > outputs = _outputs;
-    _outputs.clear();
-    return outputs;
-}
-
 bool PowerStation::acceptInput(FactoryOutput* output)
 {
     return false;

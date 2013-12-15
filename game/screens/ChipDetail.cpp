@@ -1,9 +1,11 @@
 #include "ChipDetail.hpp"
+#include "../logic/FactoryOutput.hpp"
+#include "../logic/Chip.hpp"
 #include "../Game.hpp"
 const sf::Color ChipDetail::BorderColor = sf::Color(200, 200, 200);
 const sf::Color ChipDetail::BackgroundColor = sf::Color(255, 255, 255, 50);
 ChipDetail::ChipDetail(Game& game)
-    : _game(game), _bound(0, 0, 300, 300), _border(sf::LinesStrip, 5), _background(sf::Quads, 4)
+    : _game(game), _bound(0, 0, 130, 40), _border(sf::LinesStrip, 5), _background(sf::Quads, 4)
     , _currentShowingChip(0)
 {
     _border[0].color = BorderColor;
@@ -24,6 +26,11 @@ void ChipDetail::draw(sf::RenderWindow& window, const sf::Time& delta)
     {
         window.draw(_border);
         window.draw(_background);
+        for(std::vector<sf::Sprite>::iterator it = _sprites.begin() ; it != _sprites.end() ; ++it)
+        {
+            std::cout << "[" << __FILE__ << ":" << __LINE__ << "] " << std::endl;
+            window.draw(*it);
+        }
     }
 }
 
@@ -57,6 +64,12 @@ void ChipDetail::updatePositions()
     _background[1].position = sf::Vector2f(_bound.left + _bound.width, _bound.top);
     _background[2].position = sf::Vector2f(_bound.left + _bound.width, _bound.top + _bound.height);
     _background[3].position = sf::Vector2f(_bound.left, _bound.top + _bound.height);
+
+    int i = 0;
+    for(std::vector<sf::Sprite>::iterator it = _sprites.begin() ; it != _sprites.end() ; ++it, i++)
+    {
+        (*it).setPosition(_bound.left + (i % 10) * 12, _bound.top + (i / 10) * 12);
+    }
 }
 
 void ChipDetail::showChip(Chip* chip, Mode mode)
@@ -68,13 +81,20 @@ void ChipDetail::showChip(Chip* chip, Mode mode)
         _sprites.clear();
         _currentShowingChip = 0;
     }
-    else
+    else if(chip != _currentShowingChip)
     {
+        _currentShowingChip = chip;
         if(mode == Board)
         {
+            std::vector<FactoryOutput*> inputs = chip->getInputs();
+            for(std::vector<FactoryOutput*>::iterator it = inputs.begin() ; it != inputs.end() ; ++it)
+            {
+                _sprites.push_back((**it).getSprite());
+            }
         }
         else
         {
         }
     }
+    updatePositions();
 }

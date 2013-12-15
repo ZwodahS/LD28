@@ -41,7 +41,6 @@ public:
     void beginProcessing();
     bool isProcessing();
     bool acceptInput(FactoryOutput* factory);
-    std::vector<std::pair<FactoryOutput*, zf::Grid> > getOutputs();
 protected:
     int _transferSpeed;
 

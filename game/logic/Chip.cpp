@@ -7,7 +7,7 @@ const sf::Vector2f Chip::TimerOffset = sf::Vector2f(15, 28);
 const sf::Vector2f Chip::TextBoundOffset = sf::Vector2f(33, 28);
 Chip::Chip(Game& game, Board* board, ChipType t)
     : _game(game), _board(board), _timeText(" ", game.assets.font, 14)
-    , _position(0, 0), _arrows(game), type(t), _runLeft(3)
+    , _position(0, 0), _arrows(game), type(t), _runLeft(7)
 {
     _background = _game.assets.chipOutline.createSprite();
     _timer = _game.assets.clock.createSprite();
@@ -62,6 +62,11 @@ void Chip::setPosition(const sf::Vector2f& position)
 void Chip::rotate()
 {
     _arrows.rotate();
+}
+
+void Chip::rotateAnti()
+{
+    _arrows.rotateAnti();
 }
 
 const sf::FloatRect& Chip::getBound()
@@ -131,6 +136,13 @@ bool Chip::markedForDestruction()
 bool Chip::acceptInputFrom(zf::Direction direction)
 {
     return _arrows.hasIn(direction);
+}
+
+std::vector<std::pair<FactoryOutput*, zf::Grid> > Chip::getOutputs()
+{
+    std::vector<std::pair<FactoryOutput*, zf::Grid> > outputs = _outputs;
+    _outputs.clear();
+    return outputs;
 }
 
 void Chip::setClockValue(int clockValue)

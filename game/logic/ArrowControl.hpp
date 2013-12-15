@@ -47,6 +47,7 @@ public:
      */
     ArrowControl& setArrow(zf::Direction direction, ArrowType type);
     void rotate();
+    void rotateAnti();
 
     void setPosition(const sf::Vector2f& position);
     void setAlpha(float alpha);

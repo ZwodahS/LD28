@@ -91,17 +91,75 @@ void Combiner::setConversion(FactoryOutput::Type in1, FactoryOutput::Type in2, F
 
 void Combiner::beginProcessing()
 {
+    FactoryOutput* out1 = 0;
+    FactoryOutput* out2 = 0;
+    FactoryOutput* power = 0;
+    for(std::vector<FactoryOutput*>::iterator it = _inputs.begin() ; it != _inputs.end() ; ++it)
+    {
+        if((**it).getType() == _type1)
+        {
+            if(out1 == 0)
+            {
+                out1 = *it;
+            }
+        }
+        else if((**it).getType() == _type2)
+        {
+            if(out2 == 0)
+            {
+                out2 = *it;
+            }
+        }
+        else if((**it).getType() == FactoryOutput::Power)
+        {
+            if(power == 0)
+            {
+                power = *it;
+            }
+        }
+    }
+    zf::Grid direction;
+    if(_arrows.hasOut(zf::North))
+    {
+        direction = zf::Grid(-1, 0);
+    }
+    else if(_arrows.hasOut(zf::East))
+    {
+        direction = zf::Grid(0, 1);
+    }
+    else if(_arrows.hasOut(zf::South))
+    {
+        direction = zf::Grid(1, 0);
+    }
+    else if(_arrows.hasOut(zf::West))
+    {
+        direction = zf::Grid(0, -1);
+    }
+    else
+    {
+        return;
+    }
+    if(out1 != 0 && out2 != 0 && power != 0)
+    {
+        for(std::vector<FactoryOutput*>::iterator it = _inputs.begin() ; it != _inputs.end() ; )
+        {    
+            if(*it == out1 || *it == out2 || *it == power)
+            {
+                it = _inputs.erase(it);
+                continue;
+            }
+            ++it;
+        }
+        delete out1;
+        delete out2;
+        delete power;
+        _outputs.push_back(std::pair<FactoryOutput*, zf::Grid>(new FactoryOutput(_game, _outputType), direction));
+    }
 }
 
 bool Combiner::isProcessing()
 {
     return false;
-}
-
-std::vector<std::pair<FactoryOutput*, zf::Grid> > Combiner::getOutputs()
-{
-    std::vector<std::pair<FactoryOutput*, zf::Grid> > outputs;
-    return outputs;
 }
 
 bool Combiner::acceptInput(FactoryOutput* output)
