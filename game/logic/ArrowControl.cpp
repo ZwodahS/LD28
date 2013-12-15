@@ -27,7 +27,7 @@ const sf::Vector2f ArrowControl::SouthArrowOffset = sf::Vector2f(29, 56);
 const sf::Vector2f ArrowControl::EastArrowOffset = sf::Vector2f(57, 29);
 const sf::Vector2f ArrowControl::WestArrowOffset = sf::Vector2f(1, 29);
 const sf::Color ArrowControl::OutColor = sf::Color(128, 255 , 128);
-const sf::Color ArrowControl::InColor = sf::Color(255, 255, 128);
+const sf::Color ArrowControl::InColor = sf::Color(255, 128, 128);
 ArrowControl::ArrowControl(Game& game)
     : _game(game), _north(None), _east(None), _south(None), _west(None)
 {

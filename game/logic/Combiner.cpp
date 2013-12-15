@@ -21,11 +21,67 @@
  * http://sam.zoy.org/wtfpl/COPYING for more details. 
  */
 #include "Combiner.hpp"
+const sf::Vector2f Combiner::Input1Offset = sf::Vector2f(12, 12);
+const sf::Vector2f Combiner::Input2Offset = sf::Vector2f(12, 25);
+const sf::Vector2f Combiner::Input3Offset = sf::Vector2f(13, 38);
+const sf::Vector2f Combiner::ArrowOffset = sf::Vector2f(25, 29);
+const sf::Vector2f Combiner::OutputOffset = sf::Vector2f(40, 27);
 Combiner::Combiner(Game& game, Board* board)
     : Chip(game, board)
 {
+    _input1 = _game.assets.shadedBox.createSprite();
+    _input2 = _game.assets.shadedBox.createSprite();
+    _input3 = _game.assets.power.createSprite();
+    _output = _game.assets.shadedBox.createSprite();
+    _conversionArrow = _game.assets.conversionArrow.createSprite();
 }
 
 Combiner::~Combiner()
 {
 }
+
+void Combiner::draw(sf::RenderWindow& window, const sf::Time& delta)
+{
+    Chip::draw(window, delta);
+    window.draw(_input1);
+    window.draw(_input2);
+    window.draw(_input3);
+    window.draw(_output);
+    window.draw(_conversionArrow);
+}
+
+void Combiner::update(sf::RenderWindow& window, const sf::Time& delta)
+{
+    Chip::update(window, delta);
+}
+
+void Combiner::setPosition(const sf::Vector2f& position)
+{
+    Chip::setPosition(position);
+    _conversionArrow.setPosition(_position + ArrowOffset);
+    _input1.setPosition(_position + Input1Offset);
+    _input2.setPosition(_position + Input2Offset);
+    _input3.setPosition(_position + Input3Offset);
+    _output.setPosition(_position + OutputOffset);
+}
+
+void Combiner::setAlpha(float alpha)
+{
+    Chip::setAlpha(alpha);
+    zf::setAlpha(_input1, alpha);
+    zf::setAlpha(_input2, alpha);
+    zf::setAlpha(_input3, alpha);
+    zf::setAlpha(_output, alpha);
+    zf::setAlpha(_conversionArrow, alpha);
+}
+
+void Combiner::setConversion(Pixel::Type in1, Pixel::Type in2, Pixel::Type output)
+{
+    _type1 = in1;
+    _input1.setColor(Pixel::getColor(in1));
+    _type2 = in2;
+    _input2.setColor(Pixel::getColor(in2));
+    _outputType = output;
+    _output.setColor(Pixel::getColor(_outputType));
+}
+

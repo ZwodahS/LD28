@@ -36,7 +36,6 @@ public:
     void setPosition(const sf::Vector2f& position);
     void setAlpha(float alpha);
 
-    void setArrow(ArrowControl::ArrowType north, ArrowControl::ArrowType east, ArrowControl::ArrowType south, ArrowControl::ArrowType west);
     void setPixelProduction(Pixel::Type type); 
 protected:
     Pixel::Type _factoryType;

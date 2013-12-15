@@ -21,11 +21,57 @@
  * http://sam.zoy.org/wtfpl/COPYING for more details. 
  */
 #include "Connector.hpp"
+#include "Board.hpp"
+#include "../../z_framework/zf_common/f_conversion.hpp"
+#include "../../z_framework/zf_sfml/f_common.hpp"
+const sf::Vector2f Connector::Arrow1Offset = sf::Vector2f(18, 30);
+const sf::Vector2f Connector::Arrow2Offset = sf::Vector2f(25, 30);
+const sf::Vector2f Connector::TransferTextBoundOffset = sf::Vector2f(33, 28);
 Connector::Connector(Game& game, Board* board)
-    : Chip(game, board)
+    : Chip(game, board), _transferSpeed(1), _transferSpeedText("1", game.assets.font, 14)
 {
+    _arrow1Sprite = _game.assets.arrow_right.createSprite();
+    _arrow2Sprite = _game.assets.arrow_right.createSprite();
+    _transferSpeedTextBound = sf::FloatRect(TransferTextBoundOffset.x , TransferTextBoundOffset.y, 18, 13);
 }
 
 Connector::~Connector()
 {
+}
+
+void Connector::draw(sf::RenderWindow& window, const sf::Time& delta)
+{
+    Chip::draw(window, delta);
+    if(_board == 0 || _board->chipDrawState == Board::Draw_Icon)
+    {
+        window.draw(_arrow1Sprite);
+        window.draw(_arrow2Sprite);
+        window.draw(_transferSpeedText);
+    }
+}
+
+void Connector::update(sf::RenderWindow& window, const sf::Time& delta)
+{
+    Chip::update(window, delta);
+}
+
+void Connector::setPosition(const sf::Vector2f& position)
+{
+    Chip::setPosition(position);
+    _arrow1Sprite.setPosition(_position + Arrow1Offset);
+    _arrow2Sprite.setPosition(_position + Arrow2Offset);
+    _transferSpeedTextBound.left = _position.x + TransferTextBoundOffset.x;
+    _transferSpeedTextBound.top = _position.y + TransferTextBoundOffset.y;
+    zf::alignText(_transferSpeedText, _transferSpeedTextBound, zf::AlignmentData());
+}
+
+void Connector::setAlpha(float alpha)
+{
+    Chip::setAlpha(alpha);
+}
+
+void Connector::setTransferSpeed(int speed)
+{
+    _transferSpeed = speed;
+    _transferSpeedText.setString(zf::toString(speed));
 }

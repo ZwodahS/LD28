@@ -34,10 +34,6 @@ public:
     void setPosition(const sf::Vector2f& position);
     void setAlpha(float alpha);
     
-    /**
-     * PowerStation only have output, no input
-     */
-    void setArrow(bool north, bool east, bool south, bool west);
 protected:
     sf::Sprite _icon;
 };

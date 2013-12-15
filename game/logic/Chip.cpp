@@ -79,3 +79,11 @@ void Chip::setBoard(Board* board)
 {
     _board = board;
 }
+
+void Chip::setArrow(ArrowControl::ArrowType north, ArrowControl::ArrowType east, ArrowControl::ArrowType south, ArrowControl::ArrowType west)
+{
+    _arrows.setArrow(zf::North, north);
+    _arrows.setArrow(zf::East, east);
+    _arrows.setArrow(zf::South, south);
+    _arrows.setArrow(zf::West, west);
+}

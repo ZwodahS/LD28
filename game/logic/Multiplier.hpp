@@ -24,8 +24,26 @@
 class Multiplier : public Chip
 {
 public:
+    static const sf::Vector2f PowerOffset;
+    static const sf::Vector2f ArrowOffset;
+    static const sf::Vector2f InputOffset;
+    static const sf::Vector2f Output1Offset;
+    static const sf::Vector2f Output2Offset;
     Multiplier(Game& game, Board* board = 0);
     ~Multiplier();
+
+    void draw(sf::RenderWindow& window, const sf::Time& delta);
+    void update(sf::RenderWindow& window, const sf::Time& delta);
+
+    void setPosition(const sf::Vector2f& position);
+    void setAlpha(float alpha);
+
+protected:
+    sf::Sprite _conversionArrow;    
+    sf::Sprite _powerIcon;
+    sf::Text _input;
+    sf::Text _output1;
+    sf::Text _output2;
 };
 
 

@@ -24,7 +24,24 @@
 class Connector : public Chip
 {
 public:
+    static const sf::Vector2f Arrow1Offset;
+    static const sf::Vector2f Arrow2Offset;
+    static const sf::Vector2f TransferTextBoundOffset;
     Connector(Game& game, Board* board = 0);
     ~Connector();
+
+    void draw(sf::RenderWindow& window, const sf::Time& delta);
+    void update(sf::RenderWindow& window, const sf::Time& delta);
+
+    void setPosition(const sf::Vector2f& position);
+    void setAlpha(float alpha);
+
+    void setTransferSpeed(int speed);
 protected:
+    int _transferSpeed;
+
+    sf::Sprite _arrow1Sprite;
+    sf::Sprite _arrow2Sprite;
+    sf::Text _transferSpeedText;
+    sf::FloatRect _transferSpeedTextBound;
 };

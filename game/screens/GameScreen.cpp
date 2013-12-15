@@ -3,13 +3,12 @@
 GameScreen::GameScreen(Game& game)
     : Screen(game), _board(game), _inventory(game), _factory(game)
 {
-    _board.placeChip(_factory.createRandomPowerStation(ChipFactory::Common), zf::Grid(3, 3));
-    _board.placeChip(_factory.createRandomPowerStation(ChipFactory::Uncommon), zf::Grid(4, 4));
-    _board.placeChip(_factory.createRandomPowerStation(ChipFactory::Rare), zf::Grid(5, 5));
-    
+    _inventory.addChip(_factory.createPowerStation(ChipFactory::Uncommon));
+    _inventory.addChip(_factory.createCombiner(ChipFactory::Rare));
+    _inventory.addChip(_factory.createMultiplier(ChipFactory::Uncommon));
+    _inventory.addChip(_factory.createConnector(ChipFactory::Uncommon));
     _inventory.addChip(_factory.createFactory(ChipFactory::Common));
-    _inventory.addChip(_factory.createFactory(ChipFactory::Uncommon));
-    _inventory.addChip(_factory.createFactory(ChipFactory::Rare));
+    _inventory.addChip(_factory.createCollector(ChipFactory::Uncommon));
 }
 
 GameScreen::~GameScreen()

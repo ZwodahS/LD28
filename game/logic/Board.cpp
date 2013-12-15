@@ -87,7 +87,7 @@ void Board::drawSelectedChip(sf::RenderWindow& window, const sf::Time& delta, Ch
     if(chip != 0)
     {
         zf::Grid grid = toGrid(_game.mouse.getWorldPosition(window));
-        if(inRange(grid))
+        if(inRange(grid) && canPlaceChip(grid))
         {
             chip->drawShadow(window, delta, chipPosition(grid.row, grid.col));
         }

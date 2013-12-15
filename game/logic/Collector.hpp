@@ -24,6 +24,25 @@
 class Collector : public Chip
 {
 public:
+    static const sf::Vector2f WestArrowOffset;
+    static const sf::Vector2f EastArrowOffset;
+    static const sf::Vector2f NorthArrowOffset;
+    static const sf::Vector2f SouthArrowOffset;
+    static const sf::Vector2f PixelOffset;
+    static const sf::Color ArrowColor;
     Collector(Game& game, Board* board = 0);
     ~Collector();
+
+    void draw(sf::RenderWindow& window, const sf::Time& delta);
+    void update(sf::RenderWindow& window, const sf::Time& delta);
+
+    void setPosition(const sf::Vector2f& position);
+    void setAlpha(float alpha);
+
+private:
+    sf::Sprite _westArrow;
+    sf::Sprite _eastArrow;
+    sf::Sprite _northArrow;
+    sf::Sprite _southArrow;
+    sf::Sprite _pixel;
 };

@@ -45,6 +45,7 @@ public:
     virtual const sf::FloatRect& getBound();
     virtual void setAlpha(float alpha);
     virtual void setBoard(Board* board);
+    void setArrow(ArrowControl::ArrowType north, ArrowControl::ArrowType east, ArrowControl::ArrowType south, ArrowControl::ArrowType west);
 protected:
     Game& _game;
     Board* _board;

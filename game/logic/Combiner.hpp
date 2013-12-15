@@ -24,6 +24,29 @@
 class Combiner : public Chip 
 {
 public:
+    static const sf::Vector2f Input1Offset;
+    static const sf::Vector2f Input2Offset;
+    static const sf::Vector2f Input3Offset;
+    static const sf::Vector2f ArrowOffset;
+    static const sf::Vector2f OutputOffset;
     Combiner(Game& game, Board* board = 0);
     ~Combiner();
+
+    void draw(sf::RenderWindow& window, const sf::Time& delta);
+    void update(sf::RenderWindow& window, const sf::Time& delta);
+
+    void setPosition(const sf::Vector2f& position);
+    void setAlpha(float alpha);
+
+    void setConversion(Pixel::Type type1, Pixel::Type type2, Pixel::Type output);
+private:
+    sf::Sprite _conversionArrow;
+    sf::Sprite _input1;
+    sf::Sprite _input2;
+    sf::Sprite _input3;
+    sf::Sprite _output;
+
+    Pixel::Type _type1;
+    Pixel::Type _type2;
+    Pixel::Type _outputType;
 };

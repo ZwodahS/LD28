@@ -26,7 +26,6 @@
 #include "Collector.hpp"
 #include "Combiner.hpp"
 #include "Connector.hpp"
-#include "Duplicator.hpp"
 #include "Factory.hpp"
 #include "Multiplier.hpp"
 #include "PowerStation.hpp"
@@ -40,8 +39,12 @@ public:
         Rare,
     };
     ChipFactory(Game& game);
-    PowerStation* createRandomPowerStation(Rarity rarity);
+    PowerStation* createPowerStation(Rarity rarity);
     Factory* createFactory(Rarity rarity);
+    Connector* createConnector(Rarity rarity);
+    Multiplier* createMultiplier(Rarity rarity);
+    Collector* createCollector(Rarity rarity);
+    Combiner* createCombiner(Rarity rarity);
 private:
     Game& _game;
 };
