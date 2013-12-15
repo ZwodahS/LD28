@@ -22,17 +22,20 @@
  */
 #ifndef _ZF_COMMON_INPUTSTATE_H_
 #define _ZF_COMMON_INPUTSTATE_H_
-struct InputState
+namespace zf
 {
-    bool thisDown; // bool representing if this key is down this frame.
-    bool lastDown; // bool representing if this key is down last frame.
-    bool thisPressed; // bool representing if this key is pressed this frame.
-    bool thisHeld; // bool representing if this key is pressed this frame and last frame.
-    bool thisReleased; // bool representing if this key is released this frame.
-    float timeHeld; // the time between thisDown and thisReleased. // if thisDown is false and lastDown is false then this will be 0
-    //thisPressed = Keystates[keycode]  && !lastDown
-    //thisHeld = Keystates[keycode] && lastDown
-    //thisReleased = !Keystates[keycode] && lastDown
-    InputState();
-};
+    struct InputState
+    {
+        bool thisDown; // bool representing if this key is down this frame.
+        bool lastDown; // bool representing if this key is down last frame.
+        bool thisPressed; // bool representing if this key is pressed this frame.
+        bool thisHeld; // bool representing if this key is pressed this frame and last frame.
+        bool thisReleased; // bool representing if this key is released this frame.
+        float timeHeld; // the time between thisDown and thisReleased. // if thisDown is false and lastDown is false then this will be 0
+        //thisPressed = Keystates[keycode]  && !lastDown
+        //thisHeld = Keystates[keycode] && lastDown
+        //thisReleased = !Keystates[keycode] && lastDown
+        InputState();
+    };
+}
 #endif

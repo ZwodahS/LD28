@@ -1,5 +1,6 @@
 #include "Inventory.hpp"
 #include "PowerStation.hpp"
+#include "../../z_framework/zf_common/f_inputs.hpp"
 const sf::Vector2f Inventory::InventoryBegins = sf::Vector2f(0, 740);
 const sf::Vector2f Inventory::InternalOffset = sf::Vector2f(20, 30);
 const sf::Vector2f Inventory::Spacing = sf::Vector2f(80, 80);
@@ -43,6 +44,7 @@ void Inventory::update(sf::RenderWindow& window, const sf::Time& delta)
 
 void Inventory::inputs(sf::RenderWindow& window, const sf::Time& delta)
 {
+    zf::Input::processKey(_rotateKey, sf::Keyboard::isKeyPressed(sf::Keyboard::Space), delta.asSeconds());
     if(_game.mouse.left.thisReleased)
     {
         sf::Vector2f mousePos = _game.mouse.getWorldPosition(window);
@@ -65,6 +67,13 @@ void Inventory::inputs(sf::RenderWindow& window, const sf::Time& delta)
         {
             sf::FloatRect bound = _currentSelectedChip->getBound();
             setSelectionBound(bound);
+        }
+    }
+    if(_rotateKey.thisReleased)
+    {
+        if(_currentSelectedChip != 0)
+        {
+            _currentSelectedChip->rotate();
         }
     }
 }

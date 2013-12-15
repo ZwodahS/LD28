@@ -1,6 +1,8 @@
 #ifndef _GAME_LOGIC_INVENTORY_H_
 #define _GAME_LOGIC_INVENTORY_H_
+#include "../../z_framework/zf_common/InputState.hpp"
 #include "Chip.hpp"
+#include <SFML/Window.hpp>
 class Game;
 class Inventory
 {
@@ -26,5 +28,7 @@ private:
     void updatePositions();
     sf::Vector2f chipPosition(int index);
     void setSelectionBound(sf::FloatRect bound);
+
+    zf::InputState _rotateKey;
 };
 #endif
