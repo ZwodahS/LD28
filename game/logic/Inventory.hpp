@@ -19,6 +19,7 @@ public:
 
     Chip* getSelectedChip();
     Chip* removeSelectedChip();
+    void addChip(Chip* chip);
 private:
     Game& _game;
     std::vector<Chip*> _chips;

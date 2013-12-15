@@ -12,14 +12,6 @@ Inventory::Inventory(Game& game)
     _selection[1].color = selectionColor;
     _selection[2].color = selectionColor;
     _selection[3].color = selectionColor;
-
-    PowerStation* station = new PowerStation(game);
-    _chips.push_back(station);
-    station = new PowerStation(game);
-    _chips.push_back(station);
-    station = new PowerStation(game);
-    _chips.push_back(station);
-    updatePositions();
 }
 
 Inventory::~Inventory()
@@ -123,4 +115,10 @@ Chip* Inventory::removeSelectedChip()
         updatePositions();
     }
     return tmp;
+}
+
+void Inventory::addChip(Chip* chip)
+{
+    _chips.push_back(chip);
+    updatePositions();
 }

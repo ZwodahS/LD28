@@ -26,6 +26,8 @@ const sf::Vector2f ArrowControl::NorthArrowOffset = sf::Vector2f(29, 1);
 const sf::Vector2f ArrowControl::SouthArrowOffset = sf::Vector2f(29, 56);
 const sf::Vector2f ArrowControl::EastArrowOffset = sf::Vector2f(57, 29);
 const sf::Vector2f ArrowControl::WestArrowOffset = sf::Vector2f(1, 29);
+const sf::Color ArrowControl::OutColor = sf::Color(128, 255 , 128);
+const sf::Color ArrowControl::InColor = sf::Color(255, 255, 128);
 ArrowControl::ArrowControl(Game& game)
     : _game(game), _north(None), _east(None), _south(None), _west(None)
 {
@@ -52,10 +54,12 @@ ArrowControl& ArrowControl::setArrow(zf::Direction direction, ArrowType type)
         else if(type == Out)
         {
             _northSprite = _game.assets.arrow_up.createSprite();
+            _northSprite.setColor(OutColor);
         }
         else
         {
             _northSprite = _game.assets.arrow_down.createSprite();
+            _northSprite.setColor(InColor);
         }
         _northSprite.setPosition(_position + NorthArrowOffset);
     }
@@ -69,10 +73,12 @@ ArrowControl& ArrowControl::setArrow(zf::Direction direction, ArrowType type)
         else if(type == Out)
         {
             _southSprite = _game.assets.arrow_down.createSprite();
+            _southSprite.setColor(OutColor);
         }
         else 
         {
             _southSprite = _game.assets.arrow_up.createSprite();
+            _southSprite.setColor(InColor);
         }
         _southSprite.setPosition(_position + SouthArrowOffset);
     }
@@ -86,10 +92,12 @@ ArrowControl& ArrowControl::setArrow(zf::Direction direction, ArrowType type)
         else if(type == Out)
         {
             _eastSprite = _game.assets.arrow_right.createSprite();
+            _eastSprite.setColor(OutColor);
         }
         else if(type == In)
         {
             _eastSprite = _game.assets.arrow_left.createSprite();
+            _eastSprite.setColor(InColor);
         }
         _eastSprite.setPosition(_position + EastArrowOffset);
     }
@@ -103,10 +111,12 @@ ArrowControl& ArrowControl::setArrow(zf::Direction direction, ArrowType type)
         else if(type == Out)
         {
             _westSprite = _game.assets.arrow_left.createSprite();
+            _westSprite.setColor(OutColor);
         }
         else if(type == In)
         {
             _westSprite = _game.assets.arrow_right.createSprite();
+            _westSprite.setColor(InColor);
         }
         _westSprite.setPosition(_position + WestArrowOffset);
     }

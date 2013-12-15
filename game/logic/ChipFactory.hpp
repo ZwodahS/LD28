@@ -41,6 +41,7 @@ public:
     };
     ChipFactory(Game& game);
     PowerStation* createRandomPowerStation(Rarity rarity);
+    Factory* createFactory(Rarity rarity);
 private:
     Game& _game;
 };

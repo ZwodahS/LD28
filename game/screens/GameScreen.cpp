@@ -6,6 +6,10 @@ GameScreen::GameScreen(Game& game)
     _board.placeChip(_factory.createRandomPowerStation(ChipFactory::Common), zf::Grid(3, 3));
     _board.placeChip(_factory.createRandomPowerStation(ChipFactory::Uncommon), zf::Grid(4, 4));
     _board.placeChip(_factory.createRandomPowerStation(ChipFactory::Rare), zf::Grid(5, 5));
+    
+    _inventory.addChip(_factory.createFactory(ChipFactory::Common));
+    _inventory.addChip(_factory.createFactory(ChipFactory::Uncommon));
+    _inventory.addChip(_factory.createFactory(ChipFactory::Rare));
 }
 
 GameScreen::~GameScreen()

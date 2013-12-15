@@ -34,14 +34,5 @@ void Pixel::update(sf::RenderWindow& window, const sf::Time& delta)
 
 void Pixel::updateColor()
 {
-    switch(_type)
-    {
-        case White : _sprite.setColor(sf::Color(255,255,255)); break;
-        case Red : _sprite.setColor(sf::Color(255,0,0)); break;
-        case Blue : _sprite.setColor(sf::Color(0,0,255)); break;
-        case Green : _sprite.setColor(sf::Color(0,255,0)); break;
-        case Yellow : _sprite.setColor(sf::Color(255,255,0)); break;
-        case Teal : _sprite.setColor(sf::Color(0,255,255)); break;
-        case Magenta : _sprite.setColor(sf::Color(255,0,255)); break;
-    }
+    _sprite.setColor(getColor(_type));
 }

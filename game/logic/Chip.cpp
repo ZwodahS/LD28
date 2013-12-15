@@ -54,6 +54,7 @@ void Chip::setPosition(const sf::Vector2f& position)
     _textBound.left = position.x + TextBoundOffset.x;
     _textBound.top = position.y + TextBoundOffset.y;
     zf::alignText(_timeText, _textBound, zf::AlignmentData());
+    _arrows.setPosition(_position);
 }
 
 void Chip::rotate()

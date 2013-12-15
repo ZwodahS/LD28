@@ -32,6 +32,8 @@ public:
     const static sf::Vector2f SouthArrowOffset;
     const static sf::Vector2f EastArrowOffset;
     const static sf::Vector2f WestArrowOffset;
+    const static sf::Color OutColor;
+    const static sf::Color InColor;
     enum ArrowType
     {
         None,

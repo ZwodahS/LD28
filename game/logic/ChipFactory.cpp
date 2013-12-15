@@ -52,3 +52,59 @@ PowerStation* ChipFactory::createRandomPowerStation(ChipFactory::Rarity rarity)
     }
     return station;
 }
+
+Factory* ChipFactory::createFactory(ChipFactory::Rarity rarity)
+{
+    Factory* factory = new Factory(_game);
+    if(rarity == Common)
+    {
+        int r = rand() % 3;
+        if(r == 0)
+        {
+            factory->setArrow(ArrowControl::Out, ArrowControl::In, ArrowControl::None, ArrowControl::None);
+        }
+        else if(r == 1)
+        {
+            factory->setArrow(ArrowControl::Out, ArrowControl::None, ArrowControl::In, ArrowControl::None);
+        }
+        else if(r == 2)
+        {
+            factory->setArrow(ArrowControl::Out, ArrowControl::None, ArrowControl::None, ArrowControl::In);
+        }   
+    }
+    else if(rarity == Uncommon)
+    {
+        int r = rand() % 3;
+        if(r == 0)
+        {
+            factory->setArrow(ArrowControl::Out, ArrowControl::In, ArrowControl::In, ArrowControl::None);
+        }
+        else if(r == 1)
+        {
+            factory->setArrow(ArrowControl::Out, ArrowControl::None, ArrowControl::In, ArrowControl::In);
+        }
+        else if(r == 2)
+        {
+            factory->setArrow(ArrowControl::Out, ArrowControl::In, ArrowControl::None, ArrowControl::In);
+        }   
+    }
+    else if(rarity == Rare)
+    {
+        factory->setArrow(ArrowControl::Out, ArrowControl::In, ArrowControl::In, ArrowControl::In);
+    }
+    int r = rand() % 3;
+    if(r == 0)
+    {
+        factory->setPixelProduction(Pixel::Red);
+    }
+    else if(r == 1)
+    {
+        factory->setPixelProduction(Pixel::Blue);
+    }
+    else 
+    {
+        factory->setPixelProduction(Pixel::Green);
+    }
+
+    return factory;
+}

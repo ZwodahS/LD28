@@ -24,7 +24,24 @@
 class Factory : public Chip 
 {
 public:
+    static const sf::Vector2f PowerOffset;
+    static const sf::Vector2f ArrowOffset;
+    static const sf::Vector2f OutputOffset;
     Factory(Game& game, Board* board = 0);
     ~Factory();
+
+    void draw(sf::RenderWindow& window, const sf::Time& delta);
+    void update(sf::RenderWindow& window, const sf::Time& delta);
+
+    void setPosition(const sf::Vector2f& position);
+    void setAlpha(float alpha);
+
+    void setArrow(ArrowControl::ArrowType north, ArrowControl::ArrowType east, ArrowControl::ArrowType south, ArrowControl::ArrowType west);
+    void setPixelProduction(Pixel::Type type); 
 protected:
+    Pixel::Type _factoryType;
+
+    sf::Sprite _powerIcon;
+    sf::Sprite _arrowIcon;
+    sf::Sprite _outputIcon;
 };

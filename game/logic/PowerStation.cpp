@@ -53,7 +53,6 @@ void PowerStation::setPosition(const sf::Vector2f& position)
 {
     Chip::setPosition(position);
     _background.setPosition(_position);
-    _arrows.setPosition(_position);
     _icon.setPosition(_position + PowerIconOffset);
 }
 

@@ -42,7 +42,19 @@ public:
 
     Type getPixelType();
     void setType(const Type& type);
-    
+    static sf::Color getColor(const Type& type)
+    {
+        switch(type)
+        {
+            case White : return sf::Color(255,255,255);
+            case Red : return sf::Color(255,0,0);
+            case Blue : return sf::Color(0,0,255);
+            case Green : return sf::Color(0,255,0);
+            case Yellow : return sf::Color(255,255,0);
+            case Teal : return sf::Color(0,255,255);
+            case Magenta : return sf::Color(255,0,255);
+        }
+    }
     void moveTo(sf::Vector2f startPos, sf::Vector2f endPos, float time);
 
     void draw(sf::RenderWindow& window, const sf::Time& delta);
