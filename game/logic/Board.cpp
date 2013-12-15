@@ -3,8 +3,10 @@
 #include "Chip.hpp"
 #include "PowerStation.hpp"
 const float Board::BlinkInterval = 2;
+const int Board::Max_Row = 10;
+const int Board::Max_Col = 10;
 Board::Board(Game& game)
-    : _game(game), _chips(10, 10, 0), _blink(BlinkInterval), chipDrawState(Draw_Icon)
+    : _game(game), _chips(Max_Row, Max_Col, 0), _blink(BlinkInterval), chipDrawState(Draw_Icon)
 {
     sf::Color lineColor = sf::Color(50,50,50);
     for(int row = 0 ; row < 11 ; row ++)
@@ -68,7 +70,61 @@ void Board::update(sf::RenderWindow& window, const sf::Time& delta)
     }
 }
 
+void Board::inputs(sf::RenderWindow& window, const sf::Time& delta)
+{
+}
+
 sf::Vector2f Board::chipPosition(int row, int col)
 {
     return sf::Vector2f(col * 65 + 21, row * 65 + 71);
 }
+
+zf::Grid Board::toGrid(sf::Vector2f position)
+{
+    position -= sf::Vector2f(21, 71);
+    zf::Grid grid = zf::Grid::toGrid(position.x, position.y, 65, 0);
+    if(!inRange(grid))
+    {
+        return zf::Grid(-1, -1);
+    }
+    return grid;
+}
+
+void Board::drawSelectedChip(sf::RenderWindow& window, const sf::Time& delta, Chip* chip)
+{
+    if(chip != 0)
+    {
+        zf::Grid grid = toGrid(_game.mouse.getWorldPosition(window));
+        if(inRange(grid))
+        {
+            chip->drawShadow(window, delta, chipPosition(grid.row, grid.col));
+        }
+    }
+}
+
+bool Board::inRange(const zf::Grid& grid)
+{
+    if(grid.row < 0 || grid.col < 0 || grid.row >= Max_Row || grid.col >= Max_Col)
+    {
+        return false;
+    }
+    return true;
+}
+
+bool Board::canPlaceChip(const zf::Grid& grid)
+{
+    return inRange(grid) && _chips.get(grid) == 0;
+}
+
+void Board::placeChip(Chip* chip, const zf::Grid& grid)
+{
+    if(!canPlaceChip(grid))
+    {
+        return;
+    }
+    _chips.set(grid, chip);
+    chip->setPosition(chipPosition(grid.row, grid.col));
+    chip->setBoard(this);
+}
+
+

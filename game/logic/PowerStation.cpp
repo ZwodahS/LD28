@@ -22,6 +22,7 @@
  */
 #include "PowerStation.hpp"
 #include "Board.hpp"
+#include "../../z_framework/zf_sfml/f_common.hpp"
 const sf::Vector2f PowerStation::PowerIconOffset = sf::Vector2f(27,28);
 PowerStation::PowerStation(Game& game, Board* board)
     : Chip(game, board)
@@ -60,3 +61,8 @@ void PowerStation::setPosition(const sf::Vector2f& position)
     _icon.setPosition(_position + PowerIconOffset);
 }
 
+void PowerStation::setAlpha(float alpha)
+{
+    Chip::setAlpha(alpha);
+    zf::setAlpha(_icon, alpha);
+}

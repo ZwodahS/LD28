@@ -32,6 +32,7 @@ public:
     void update(sf::RenderWindow& window, const sf::Time& delta);
 
     void setPosition(const sf::Vector2f& position);
+    void setAlpha(float alpha);
 protected:
     sf::Sprite _icon;
 };

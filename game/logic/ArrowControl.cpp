@@ -21,6 +21,7 @@
  * http://sam.zoy.org/wtfpl/COPYING for more details. 
  */
 #include "ArrowControl.hpp"
+#include "../../z_framework/zf_sfml/f_common.hpp"
 const sf::Vector2f ArrowControl::NorthArrowOffset = sf::Vector2f(29, 1);
 const sf::Vector2f ArrowControl::SouthArrowOffset = sf::Vector2f(29, 56);
 const sf::Vector2f ArrowControl::EastArrowOffset = sf::Vector2f(57, 29);
@@ -133,3 +134,11 @@ void ArrowControl::update(sf::RenderWindow& window, const sf::Time& delta)
 {
 }
 
+
+void ArrowControl::setAlpha(float alpha)
+{
+    zf::setAlpha(_northSprite, alpha);
+    zf::setAlpha(_eastSprite, alpha);
+    zf::setAlpha(_southSprite, alpha);
+    zf::setAlpha(_westSprite, alpha);
+}

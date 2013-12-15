@@ -30,11 +30,18 @@ class Board
 {
 public:
     static const float BlinkInterval;
+    static const int Max_Row;
+    static const int Max_Col;
     Board(Game& game);
 
     void draw(sf::RenderWindow& window, const sf::Time& delta);
+    void drawSelectedChip(sf::RenderWindow& window, const sf::Time& delta, Chip* currentChip);
     void update(sf::RenderWindow& window, const sf::Time& delta);
     void inputs(sf::RenderWindow& window, const sf::Time& delta);
+    bool canPlaceChip(const zf::Grid& grid);
+    bool inRange(const zf::Grid& grid);
+    void placeChip(Chip* chip, const zf::Grid& grid);
+    zf::Grid toGrid(sf::Vector2f position);
     enum ChipDrawState
     {
         Draw_Icon,

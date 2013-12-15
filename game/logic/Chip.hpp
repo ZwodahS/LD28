@@ -35,10 +35,16 @@ public:
     virtual ~Chip();
 
     virtual void draw(sf::RenderWindow& window, const sf::Time& delta);
+    /**
+     * Draw a "shadow" of the chip on the board.
+     */
+    void drawShadow(sf::RenderWindow& window, const sf::Time& delta, const sf::Vector2f& position);
     virtual void update(sf::RenderWindow& window, const sf::Time& delta);
     virtual void setPosition(const sf::Vector2f& position);
     virtual void rotate();
     virtual const sf::FloatRect& getBound();
+    virtual void setAlpha(float alpha);
+    virtual void setBoard(Board* board);
 protected:
     Game& _game;
     Board* _board;

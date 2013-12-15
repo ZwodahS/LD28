@@ -15,9 +15,10 @@ public:
     void textInput(char c);
     void screenEnter();
     void screenExit();
+
+    void placeChipOnGrid(zf::Grid grid);
 private:
     Board _board;
     Inventory _inventory;
-
 };
 #endif

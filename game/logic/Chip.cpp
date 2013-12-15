@@ -29,6 +29,16 @@ void Chip::draw(sf::RenderWindow& window, const sf::Time& delta)
     }
 }
 
+void Chip::drawShadow(sf::RenderWindow& window, const sf::Time& delta, const sf::Vector2f& position)
+{
+    sf::Vector2f oldPos = _position;
+    setPosition(position);
+    setAlpha(100);
+    draw(window, delta);
+    setPosition(oldPos);
+    setAlpha(255);
+}
+
 void Chip::update(sf::RenderWindow& window, const sf::Time& delta)
 {
     _arrows.update(window, delta);
@@ -54,4 +64,17 @@ void Chip::rotate()
 const sf::FloatRect& Chip::getBound()
 {
     return _bound;
+}
+
+void Chip::setAlpha(float alpha)
+{
+    zf::setAlpha(_background, alpha);
+    zf::setAlpha(_timer, alpha);
+    zf::setAlpha(_timeText, alpha);
+    _arrows.setAlpha(alpha);
+}
+
+void Chip::setBoard(Board* board)
+{
+    _board = board;
 }

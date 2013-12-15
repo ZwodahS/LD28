@@ -47,6 +47,7 @@ public:
     void rotate();
 
     void setPosition(const sf::Vector2f& position);
+    void setAlpha(float alpha);
     void draw(sf::RenderWindow& window, const sf::Time& delta);
     void update(sf::RenderWindow& window, const sf::Time& delta);
 private:

@@ -18,7 +18,7 @@ public:
     void inputs(sf::RenderWindow& window, const sf::Time& delta);
 
     Chip* getSelectedChip();
-
+    Chip* removeSelectedChip();
 private:
     Game& _game;
     std::vector<Chip*> _chips;

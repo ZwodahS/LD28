@@ -5,7 +5,7 @@ const sf::Vector2f Inventory::InventoryBegins = sf::Vector2f(0, 740);
 const sf::Vector2f Inventory::InternalOffset = sf::Vector2f(20, 30);
 const sf::Vector2f Inventory::Spacing = sf::Vector2f(80, 80);
 Inventory::Inventory(Game& game)
-    : _game(game), _selection(sf::Quads, 4)
+    : _game(game), _selection(sf::Quads, 4), _currentSelectedChip(0)
 {
     sf::Color selectionColor = sf::Color(100, 100, 0);
     _selection[0].color = selectionColor;
@@ -98,4 +98,29 @@ void Inventory::setSelectionBound(sf::FloatRect bound)
     _selection[1].position = sf::Vector2f(bound.left + 3 + bound.width, bound.top - 3);
     _selection[2].position = sf::Vector2f(bound.left + 3 + bound.width, bound.top + 3 + bound.height);
     _selection[3].position = sf::Vector2f(bound.left - 3 , bound.top + 3 + bound.height);
+}
+
+Chip* Inventory::getSelectedChip()
+{
+    return _currentSelectedChip;
+}
+
+Chip* Inventory::removeSelectedChip()
+{
+    Chip* tmp = _currentSelectedChip;
+    if(_currentSelectedChip != 0)
+    {
+        for(std::vector<Chip*>::iterator it = _chips.begin() ; it != _chips.end() ; )
+        {    
+            if(*it == _currentSelectedChip)
+            {
+                it = _chips.erase(it);
+                continue;
+            }
+            ++it;
+        }
+        _currentSelectedChip = 0;
+        updatePositions();
+    }
+    return tmp;
 }
