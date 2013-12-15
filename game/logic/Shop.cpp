@@ -318,13 +318,13 @@ void Shop::inputs(sf::RenderWindow& window, const sf::Time& delta)
 
 void Shop::simulatePriceMovement()
 {
-    _price_red += rand() % 10 - 5;
-    _price_green += rand() % 10 - 5;
-    _price_blue += rand() % 10 - 5;
-    _price_yellow += rand() % 10 - 5;
-    _price_teal += rand() % 10 - 5;
-    _price_magenta += rand() % 10 - 5;
-    _price_white += rand() % 10 - 5;
+    _price_red += rand() % 9 - (_price_red < 20 ? 0 : 4);
+    _price_green += rand() % 9 - (_price_green < 20 ? 0 : 4);
+    _price_blue += rand() % 9 - (_price_blue < 20 ? 0 : 4);
+    _price_yellow += rand() % 9 - (_price_yellow < 80 ? 0 : 4);
+    _price_teal += rand() % 9 - (_price_teal < 80 ? 0 : 4);
+    _price_magenta += rand() % 9 - (_price_magenta < 80 ? 0 : 4);
+    _price_white += rand() % 9 - (_price_white < 200 ? 0 : 4);
     updateValues();
 }
 
