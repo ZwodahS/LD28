@@ -25,7 +25,7 @@
 /*
  * Stores the position in a Grid place system (row by column)
  */
-#include <math.h>
+#include <cmath>
 #include <iostream>
 namespace zf
 {
