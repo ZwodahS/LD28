@@ -5,11 +5,14 @@
 
 #define CLEAR_COLOR sf::Color(20,20,20,255)
 #define GAME_TITLE "Pixel Factory"
-#define GAME_WIDTH 960
-#define GAME_HEIGHT 960
+#define GAME_WIDTH 1080
+#define GAME_HEIGHT 720
+#include "../z_framework/zf_common/f_conversion.hpp"
+#include <fstream>
 Game::Game()
     :width(GAME_WIDTH), height(GAME_HEIGHT), title(GAME_TITLE),
     window(sf::VideoMode(width,height),title),mouse(), isFocused(true)
+    , StartingPriceBasic(100), StartingPriceAdvanced(400), StartingPriceExpert(1500), StartingCash(3000)
 {
 }
 
@@ -20,6 +23,24 @@ Game::~Game()
 
 void Game::run()
 {
+    std::string line;
+    std::ifstream file("data/config");
+    std::vector<std::string> strings;
+    if(file.is_open())
+    {
+        while(getline(file, line))
+        {
+            strings.push_back(line);
+        }
+        file.close();
+    }
+    if(strings.size() == 4)
+    {
+        zf::toInt(strings[0], StartingPriceBasic);
+        zf::toInt(strings[1], StartingPriceAdvanced);
+        zf::toInt(strings[2], StartingPriceExpert);
+        zf::toInt(strings[3], StartingCash);
+    }
     loadAssets();
     sf::Clock clock; // set up the clock for delta
     _currentScreen = new GameScreen(*this);

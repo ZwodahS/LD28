@@ -30,6 +30,7 @@ class FactoryOutput;
 class Board
 {
 public:
+    static const sf::Vector2f BoardOffset;
     static const float BlinkInterval;
     static const int Max_Row;
     static const int Max_Col;

@@ -4,41 +4,41 @@
 #include "../screens/GameScreen.hpp" // I really hate to do this
 #include "../../z_framework/zf_sfml/f_common.hpp"
 #include "../../z_framework/zf_common/f_conversion.hpp"
-const sf::FloatRect Shop::Text_RedPrice     = sf::FloatRect(780, 70, 150, 30);
-const sf::FloatRect Shop::Text_GreenPrice   = sf::FloatRect(780, 120, 150, 30);
-const sf::FloatRect Shop::Text_BluePrice    = sf::FloatRect(780, 170, 150, 30);
-const sf::FloatRect Shop::Text_YellowPrice  = sf::FloatRect(780, 220, 150, 30);
-const sf::FloatRect Shop::Text_TealPrice    = sf::FloatRect(780, 270, 150, 30);
-const sf::FloatRect Shop::Text_MagentaPrice = sf::FloatRect(780, 320, 150, 30);
-const sf::FloatRect Shop::Text_WhitePrice   = sf::FloatRect(780, 370, 150, 30);
+const sf::FloatRect Shop::Text_RedPrice     = sf::FloatRect(920, 50, 150, 30);
+const sf::FloatRect Shop::Text_GreenPrice   = sf::FloatRect(920, 90, 150, 30);
+const sf::FloatRect Shop::Text_BluePrice    = sf::FloatRect(920, 130, 150, 30);
+const sf::FloatRect Shop::Text_YellowPrice  = sf::FloatRect(920, 170, 150, 30);
+const sf::FloatRect Shop::Text_TealPrice    = sf::FloatRect(920, 210, 150, 30);
+const sf::FloatRect Shop::Text_MagentaPrice = sf::FloatRect(920, 250, 150, 30);
+const sf::FloatRect Shop::Text_WhitePrice   = sf::FloatRect(920, 290, 150, 30);
 
-const sf::FloatRect Shop::Text_RedStock     = sf::FloatRect(730, 70,  50, 30);
-const sf::FloatRect Shop::Text_GreenStock   = sf::FloatRect(730, 120, 50, 30);
-const sf::FloatRect Shop::Text_BlueStock    = sf::FloatRect(730, 170, 50, 30);
-const sf::FloatRect Shop::Text_YellowStock  = sf::FloatRect(730, 220, 50, 30);
-const sf::FloatRect Shop::Text_TealStock    = sf::FloatRect(730, 270, 50, 30);
-const sf::FloatRect Shop::Text_MagentaStock = sf::FloatRect(730, 320, 50, 30);
-const sf::FloatRect Shop::Text_WhiteStock   = sf::FloatRect(730, 370, 50, 30);
+const sf::FloatRect Shop::Text_RedStock     = sf::FloatRect(880, 50,  50, 30);
+const sf::FloatRect Shop::Text_GreenStock   = sf::FloatRect(880, 90, 50, 30);
+const sf::FloatRect Shop::Text_BlueStock    = sf::FloatRect(880, 130, 50, 30);
+const sf::FloatRect Shop::Text_YellowStock  = sf::FloatRect(880, 170, 50, 30);
+const sf::FloatRect Shop::Text_TealStock    = sf::FloatRect(880, 210, 50, 30);
+const sf::FloatRect Shop::Text_MagentaStock = sf::FloatRect(880, 250, 50, 30);
+const sf::FloatRect Shop::Text_WhiteStock   = sf::FloatRect(880, 290, 50, 30);
 
-const sf::Vector2f Shop::Sprite_Red = sf::Vector2f(720, 80);
-const sf::Vector2f Shop::Sprite_Green = sf::Vector2f(720, 130);
-const sf::Vector2f Shop::Sprite_Blue = sf::Vector2f(720, 180);
-const sf::Vector2f Shop::Sprite_Yellow = sf::Vector2f(720, 230);
-const sf::Vector2f Shop::Sprite_Teal = sf::Vector2f(720, 280);
-const sf::Vector2f Shop::Sprite_Magenta = sf::Vector2f(720, 330);
-const sf::Vector2f Shop::Sprite_White = sf::Vector2f(720, 380);
+const sf::Vector2f Shop::Sprite_Red     = sf::Vector2f(870, 60);
+const sf::Vector2f Shop::Sprite_Green   = sf::Vector2f(870, 100);
+const sf::Vector2f Shop::Sprite_Blue    = sf::Vector2f(870, 140);
+const sf::Vector2f Shop::Sprite_Yellow  = sf::Vector2f(870, 180);
+const sf::Vector2f Shop::Sprite_Teal    = sf::Vector2f(870, 220);
+const sf::Vector2f Shop::Sprite_Magenta = sf::Vector2f(870, 260);
+const sf::Vector2f Shop::Sprite_White   = sf::Vector2f(870, 300);
 
-const sf::FloatRect Shop::BuyOneCommonButton = sf::FloatRect(720, 500, 220, 40);
-const sf::FloatRect Shop::BuyFiveCommonButton = sf::FloatRect(720, 550, 220, 40);
-const sf::FloatRect Shop::BuyOneUncommonButton = sf::FloatRect(720, 600, 220, 40);
-const sf::FloatRect Shop::BuyFiveUncommonButton = sf::FloatRect(720, 650, 220, 40);
-const sf::FloatRect Shop::BuyOneRareButton = sf::FloatRect(720, 700, 220, 40);
-const sf::FloatRect Shop::BuyFiveRareButton = sf::FloatRect(720, 750, 220, 40);
+const sf::FloatRect Shop::BuyOneCommonButton    = sf::FloatRect(850, 350, 220, 40);
+const sf::FloatRect Shop::BuyFiveCommonButton   = sf::FloatRect(850, 400, 220, 40);
+const sf::FloatRect Shop::BuyOneUncommonButton  = sf::FloatRect(850, 450, 220, 40);
+const sf::FloatRect Shop::BuyFiveUncommonButton = sf::FloatRect(850, 500, 220, 40);
+const sf::FloatRect Shop::BuyOneRareButton      = sf::FloatRect(850, 550, 220, 40);
+const sf::FloatRect Shop::BuyFiveRareButton     = sf::FloatRect(850, 600, 220, 40);
 Shop::Shop(Game& game, Player& player, GameScreen& parent)
     : _game(game), _player(player), _parent(parent)
-    , _price_red(StartingPriceBasic), _price_green(StartingPriceBasic), _price_blue(StartingPriceBasic)
-    , _price_yellow(StartingPriceAdvanced), _price_teal(StartingPriceAdvanced), _price_magenta(StartingPriceAdvanced)
-    , _price_white(StartingPriceExpert)
+    , _price_red(_game.StartingPriceBasic), _price_green(_game.StartingPriceBasic), _price_blue(_game.StartingPriceBasic)
+    , _price_yellow(_game.StartingPriceAdvanced), _price_teal(_game.StartingPriceAdvanced), _price_magenta(_game.StartingPriceAdvanced)
+    , _price_white(_game.StartingPriceExpert)
     , _stock_red("0", game.assets.font, 14)
     , _stock_green("0", game.assets.font, 14)
     , _stock_blue("0", game.assets.font, 14)

@@ -5,6 +5,7 @@
 const float Board::BlinkInterval = 2;
 const int Board::Max_Row = 10;
 const int Board::Max_Col = 10;
+const sf::Vector2f Board::BoardOffset = sf::Vector2f(170, 20);
 Board::Board(Game& game)
     : _game(game), _chips(Max_Row, Max_Col, 0), _blink(BlinkInterval), chipDrawState(Draw_Icon), boardState(State_Idle)
 {
@@ -12,8 +13,8 @@ Board::Board(Game& game)
     for(int row = 0 ; row < 11 ; row ++)
     {
         sf::VertexArray line = sf::VertexArray(sf::Lines, 2);
-        line[0].position = sf::Vector2f(20, 70 + row * (65));
-        line[1].position = sf::Vector2f(670, 70 + row * (65));
+        line[0].position = sf::Vector2f(0, row * (65)) + BoardOffset;
+        line[1].position = sf::Vector2f(650, row * (65)) + BoardOffset;
         line[0].color = lineColor;
         line[1].color = lineColor;
         _lines.push_back(line);
@@ -21,8 +22,8 @@ Board::Board(Game& game)
     for(int col = 0 ; col < 11 ; col ++)
     {
         sf::VertexArray line = sf::VertexArray(sf::Lines, 2);
-        line[0].position = sf::Vector2f(20 + col * (65), 70);
-        line[1].position = sf::Vector2f(20 + col * (65), 720);
+        line[0].position = sf::Vector2f(col * (65), 0) + BoardOffset;
+        line[1].position = sf::Vector2f(col * (65), 650) + BoardOffset;
         line[0].color = lineColor;
         line[1].color = lineColor;
         _lines.push_back(line);
@@ -229,12 +230,16 @@ Chip* Board::getChip(sf::Vector2f position)
 
 sf::Vector2f Board::chipPosition(int row, int col)
 {
-    return sf::Vector2f(col * 65 + 21, row * 65 + 71);
+    return sf::Vector2f(col * 65, row * 65) + BoardOffset + sf::Vector2f(1,1);
 }
 
 zf::Grid Board::toGrid(sf::Vector2f position)
 {
-    position -= sf::Vector2f(21, 71);
+    position -= BoardOffset - sf::Vector2f(1, 1);
+    if(position.x < 0 || position.y < 0)
+    {
+        return zf::Grid(-1, -1);
+    }
     zf::Grid grid = zf::Grid::toGrid(position.x, position.y, 65, 0);
     if(!inRange(grid))
     {

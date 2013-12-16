@@ -25,10 +25,10 @@
 #include "../Game.hpp"
 #include "../../z_framework/zf_sfml/f_common.hpp"
 #include "../../z_framework/zf_common/f_conversion.hpp"
-const sf::Vector2f Player::DollarIcon = sf::Vector2f(730,18);
-const sf::FloatRect Player::DollarText = sf::FloatRect(750, 10, 50, 30);
+const sf::Vector2f Player::DollarIcon = sf::Vector2f(970,18);
+const sf::FloatRect Player::DollarText = sf::FloatRect(990, 10, 50, 30);
 Player::Player(Game& game)
-    : cash(2000), redPixel(0), bluePixel(0), greenPixel(0), magentaPixel(0)
+    : cash(game.StartingCash), redPixel(0), bluePixel(0), greenPixel(0), magentaPixel(0)
     , tealPixel(0), yellowPixel(0), whitePixel(0), _game(game)
     , _cashText(zf::toString(cash), _game.assets.font, 14), _cashIcon(_game.assets.dollar.createSprite())
 {

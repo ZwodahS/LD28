@@ -38,10 +38,6 @@ public:
     static const int Cost_One_R = 500;
     static const int Cost_Five_R = 2000;
 
-    static const int StartingPriceBasic = 50;
-    static const int StartingPriceAdvanced = 200;
-    static const int StartingPriceExpert = 500;
-
     static const sf::FloatRect Text_RedPrice;
     static const sf::FloatRect Text_GreenPrice;
     static const sf::FloatRect Text_BluePrice;

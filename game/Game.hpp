@@ -20,6 +20,12 @@ class Game
 
         const sf::Int32 width;
         const sf::Int32 height;
+
+        int StartingPriceBasic;
+        int StartingPriceAdvanced;
+        int StartingPriceExpert;
+        int StartingCash;
+
         std::string title;
         sf::RenderWindow window; 
         zf::Mouse mouse;

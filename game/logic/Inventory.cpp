@@ -1,8 +1,8 @@
 #include "Inventory.hpp"
 #include "PowerStation.hpp"
 #include "../../z_framework/zf_common/f_inputs.hpp"
-const sf::Vector2f Inventory::InventoryBegins = sf::Vector2f(0, 740);
-const sf::Vector2f Inventory::InternalOffset = sf::Vector2f(20, 30);
+const sf::Vector2f Inventory::InventoryBegins = sf::Vector2f(5, 10);
+const sf::Vector2f Inventory::InternalOffset = sf::Vector2f(5, 5);
 const sf::Vector2f Inventory::Spacing = sf::Vector2f(80, 80);
 Inventory::Inventory(Game& game)
     : _game(game), _selection(sf::Quads, 4), _currentSelectedChip(0)
@@ -89,7 +89,7 @@ void Inventory::updatePositions()
 
 sf::Vector2f Inventory::chipPosition(int index)
 {
-    return InventoryBegins + InternalOffset + sf::Vector2f(index/2 * Spacing.x + 3, index%2 * Spacing.y + 3);
+    return InventoryBegins + InternalOffset + sf::Vector2f(index%2 * Spacing.x + 3, index/2 * Spacing.y + 3);
 }
 
 void Inventory::setSelectionBound(sf::FloatRect bound)
