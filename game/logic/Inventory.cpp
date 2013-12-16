@@ -4,8 +4,10 @@
 const sf::Vector2f Inventory::InventoryBegins = sf::Vector2f(5, 10);
 const sf::Vector2f Inventory::InternalOffset = sf::Vector2f(5, 5);
 const sf::Vector2f Inventory::Spacing = sf::Vector2f(80, 80);
+const sf::FloatRect Inventory::SellButton = sf::FloatRect(10, 650, 150, 30);
 Inventory::Inventory(Game& game)
     : _game(game), _selection(sf::Quads, 4), _currentSelectedChip(0)
+    , _destroyButton(sf::Color(255,255,255,255), sf::Color(255,255,255,50), SellButton, sf::Text("Destroy Chip", _game.assets.font, 14))
 {
     sf::Color selectionColor = sf::Color(100, 100, 0);
     _selection[0].color = selectionColor;
@@ -28,6 +30,7 @@ void Inventory::draw(sf::RenderWindow& window, const sf::Time& delta)
     {
         (**it).draw(window, delta);
     }
+    _destroyButton.draw(window, delta);
 }
 
 void Inventory::update(sf::RenderWindow& window, const sf::Time& delta)
@@ -38,6 +41,16 @@ void Inventory::inputs(sf::RenderWindow& window, const sf::Time& delta)
 {
     zf::Input::processKey(_rotateAntiKey, sf::Keyboard::isKeyPressed(sf::Keyboard::Q), delta.asSeconds());
     zf::Input::processKey(_rotateKey, sf::Keyboard::isKeyPressed(sf::Keyboard::E), delta.asSeconds());
+    if(_destroyButton.inputs(window, delta, _game.mouse))
+    {
+        if(_game.mouse.left.thisReleased)
+        {
+            if(_currentSelectedChip != 0)
+            {
+                destroyCurrentChip();
+            }
+        }
+    }
     if(_game.mouse.left.thisReleased)
     {
         sf::Vector2f mousePos = _game.mouse.getWorldPosition(window);
@@ -134,4 +147,10 @@ void Inventory::addChip(Chip* chip)
 bool Inventory::isFull()
 {
     return _chips.size() >= 16;
+}
+
+void Inventory::destroyCurrentChip()
+{
+    Chip* chip = removeSelectedChip();
+    delete chip;
 }

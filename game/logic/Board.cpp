@@ -323,7 +323,7 @@ void Board::collect(FactoryOutput* goods)
 
 int Board::getChipCount()
 {
-    int count;
+    int count = 0;
     for(zf::TwoDSpace<Chip*>::Iterator it = _chips.iteratesColRow(); !(it.end()) ; ++it)
     {
         if(it.get() != 0)

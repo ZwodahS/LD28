@@ -15,7 +15,7 @@ WARNING= -Wall -Wextra -Wno-switch -Wno-sign-compare -Wno-missing-braces -Wno-un
 OPTIMIZE= -fno-exceptions
 BIN=pixelfactory
 CXX=clang++ #${WARNING}
-SFML=-framework sfml-graphics -framework sfml-window -framework sfml-system -framework sfml-network
+SFML= -framework SFML -l sfml-graphics -l sfml-window -l sfml-system 
 OBJDIR=obj
 
 #zf framework 
@@ -37,7 +37,7 @@ main=obj/main.o
 all: $(BIN)
 
 $(BIN) : $(main) $(zf_commonobjs) $(zf_sfmlobjs) $(zf_sfmlsubobjs) $(zf_platformerobjs) $(zf_networkobjs) $(zf_networksubobjs) $(gameobjs)
-	$(CXX) -o $(BIN) $(OBJDIR)/* $(SFML)
+	$(CXX) $(FRAMEWORK) -o $(BIN) $(OBJDIR)/* $(SFML)
 
 $(OBJDIR)/%.o : %.cpp
 	$(CXX) -c -o $@ $^

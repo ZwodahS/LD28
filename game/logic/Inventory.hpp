@@ -1,6 +1,7 @@
 #ifndef _GAME_LOGIC_INVENTORY_H_
 #define _GAME_LOGIC_INVENTORY_H_
 #include "../../z_framework/zf_common/InputState.hpp"
+#include "../../z_framework/zf_sfml/VertexButton.hpp"
 #include "Chip.hpp"
 #include <SFML/Window.hpp>
 class Game;
@@ -10,6 +11,7 @@ public:
     static const sf::Vector2f InventoryBegins;
     static const sf::Vector2f InternalOffset;
     static const sf::Vector2f Spacing;
+    static const sf::FloatRect SellButton;
     Inventory(Game& game);
     ~Inventory();
 
@@ -31,8 +33,12 @@ private:
     void updatePositions();
     sf::Vector2f chipPosition(int index);
     void setSelectionBound(sf::FloatRect bound);
+    
+    zf::VertexButton _destroyButton;
 
     zf::InputState _rotateKey;
     zf::InputState _rotateAntiKey;
+
+    void destroyCurrentChip();
 };
 #endif

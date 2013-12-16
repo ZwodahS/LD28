@@ -78,40 +78,34 @@ void Factory::setFactoryOutputProduction(FactoryOutput::Type type)
 
 void Factory::beginProcessing()
 {
-    FactoryOutput* output = 0;
-    for(std::vector<FactoryOutput*>::iterator it = _inputs.begin() ; it != _inputs.end() ; ++it)
+    zf::Grid direction;
+    if(_arrows.hasOut(zf::North))
     {
+        direction = zf::Grid(-1, 0);
+    }
+    else if(_arrows.hasOut(zf::East))
+    {
+        direction = zf::Grid(0, 1);
+    }
+    else if(_arrows.hasOut(zf::South))
+    {
+        direction = zf::Grid(1, 0);
+    }
+    else if(_arrows.hasOut(zf::West))
+    {
+        direction = zf::Grid(0, -1);
+    }
+    for(std::vector<FactoryOutput*>::iterator it = _inputs.begin() ; it != _inputs.end() ; )
+    {    
         if((**it).getType() == FactoryOutput::Power)
         {
             FactoryOutput* o = *it;
-            _inputs.erase(it);
+            it = _inputs.erase(it);
             delete o;
-            output = new FactoryOutput(_game, _factoryType);
-            break;
+            _outputs.push_back(std::pair<FactoryOutput*, zf::Grid>(new FactoryOutput(_game, _factoryType), direction));
+            continue;
         }
-        else
-        {
-            delete *it;
-        }
-    }
-    if(output != 0)
-    {
-        if(_arrows.hasOut(zf::North))
-        {
-            _outputs.push_back(std::pair<FactoryOutput*, zf::Grid>(output, zf::Grid(-1, 0)));
-        }
-        else if(_arrows.hasOut(zf::East))
-        {
-            _outputs.push_back(std::pair<FactoryOutput*, zf::Grid>(output, zf::Grid(0, 1)));
-        }
-        else if(_arrows.hasOut(zf::South))
-        {
-            _outputs.push_back(std::pair<FactoryOutput*, zf::Grid>(output, zf::Grid(1, 0)));
-        }
-        else if(_arrows.hasOut(zf::West))
-        {
-            _outputs.push_back(std::pair<FactoryOutput*, zf::Grid>(output, zf::Grid(0, -1)));
-        }
+        ++it;
     }
 }
 
