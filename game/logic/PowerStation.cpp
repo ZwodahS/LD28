@@ -38,7 +38,7 @@ PowerStation::~PowerStation()
 void PowerStation::draw(sf::RenderWindow& window, const sf::Time& delta)
 {
     Chip::draw(window, delta);
-    if(_board == 0 || _board->chipDrawState == Board::Draw_Icon)
+    if(_board == 0 || _board->getChipDrawState() == Board::Draw_Icon)
     {
         window.draw(_icon);
     }

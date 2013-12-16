@@ -2,12 +2,13 @@
 #include "../Game.hpp"
 #include "Chip.hpp"
 #include "FactoryOutput.hpp"
-const float Board::BlinkInterval = 2;
+#include "../../z_framework/zf_common/f_inputs.hpp"
+const float Board::BlinkInterval = 3;
 const int Board::Max_Row = 10;
 const int Board::Max_Col = 10;
 const sf::Vector2f Board::BoardOffset = sf::Vector2f(170, 20);
 Board::Board(Game& game)
-    : _game(game), _chips(Max_Row, Max_Col, 0), _blink(BlinkInterval), chipDrawState(Draw_Icon), boardState(State_Idle)
+    : _game(game), _chips(Max_Row, Max_Col, 0), _blink(BlinkInterval), _chipDrawState(Draw_Icon), boardState(State_Idle)
 {
     sf::Color lineColor = sf::Color(50,50,50);
     for(int row = 0 ; row < 11 ; row ++)
@@ -63,7 +64,7 @@ void Board::update(sf::RenderWindow& window, const sf::Time& delta)
     if(_blink < 0)
     {
         _blink += BlinkInterval;
-        chipDrawState = chipDrawState == Draw_Icon ? Draw_Timer : Draw_Icon;
+        _chipDrawState = _chipDrawState == Draw_Icon ? Draw_Timer : Draw_Icon;
     }
     if(boardState == State_Idle)
     {
@@ -213,6 +214,12 @@ void Board::update(sf::RenderWindow& window, const sf::Time& delta)
 
 void Board::inputs(sf::RenderWindow& window, const sf::Time& delta)
 {
+    zf::Input::processKey(_showTimer, sf::Keyboard::isKeyPressed(sf::Keyboard::LShift), delta.asSeconds());
+    if(_showTimer.thisReleased)
+    {
+        _blink = 10;
+        _chipDrawState = _chipDrawState == Draw_Icon ? Draw_Timer : Draw_Icon;
+    }
 }
 
 Chip* Board::getChip(sf::Vector2f position)
@@ -325,4 +332,9 @@ int Board::getChipCount()
         }
     }
     return count;
+}
+
+Board::ChipDrawState Board::getChipDrawState()
+{
+    return _chipDrawState;
 }

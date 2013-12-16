@@ -24,6 +24,7 @@
 #define _GAME_LOGIC_BOARD_H_
 #include <SFML/Graphics.hpp>
 #include "../../z_framework/zf_common/TwoDSpace.hpp"
+#include "../../z_framework/zf_common/InputState.hpp"
 class Chip;
 class Game;
 class FactoryOutput;
@@ -45,11 +46,6 @@ public:
     bool inRange(const zf::Grid& grid);
     void placeChip(Chip* chip, const zf::Grid& grid);
     zf::Grid toGrid(sf::Vector2f position);
-    enum ChipDrawState
-    {
-        Draw_Icon,
-        Draw_Timer,
-    } chipDrawState;
     
     enum BoardState
     {
@@ -59,10 +55,18 @@ public:
         State_DestructionOfChip,
     } boardState;
 
+    enum ChipDrawState
+    {
+        Draw_Icon,
+        Draw_Timer,
+    } ;
+
     void runOnce();
     std::vector<FactoryOutput*> getCollectorGoods();
     void collect(FactoryOutput* output);
     int getChipCount();
+
+    ChipDrawState getChipDrawState();
 private:
     Game& _game;
 
@@ -75,5 +79,8 @@ private:
 
     std::vector<FactoryOutput*> _factoryOutputs;
     std::vector<FactoryOutput*> _collectorGoods;
+
+    ChipDrawState _chipDrawState;
+    zf::InputState _showTimer;
 };
 #endif

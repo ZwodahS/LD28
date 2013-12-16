@@ -24,7 +24,7 @@ void Chip::draw(sf::RenderWindow& window, const sf::Time& delta)
 {
     window.draw(_background);
     _arrows.draw(window, delta);
-    if(_board != 0 && _board->chipDrawState == Board::Draw_Timer)
+    if(_board != 0 && _board->getChipDrawState() == Board::Draw_Timer)
     {
         window.draw(_timer);
         window.draw(_timeText);
