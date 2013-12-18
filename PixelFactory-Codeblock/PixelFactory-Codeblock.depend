@@ -1,0 +1,292 @@
+# depslib dependency file v1.0
+1387345891 source:c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\game\f_assetsloading.cpp
+	"Game.hpp"
+	"../ResourcePath.hpp"
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\game\game.hpp
+	"Assets.hpp"
+	"../z_framework/zf_sfml/Mouse.hpp"
+	<SFML/Graphics.hpp>
+	<string>
+	<iostream>
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\game\assets.hpp
+	<SFML/Graphics.hpp>
+	"../z_framework/zf_sfml/SpriteSheet.hpp"
+	"../z_framework/zf_sfml/TextureRegion.hpp"
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\z_framework\zf_sfml\spritesheet.hpp
+	"TextureRegion.hpp"
+	<SFML/Graphics.hpp>
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\z_framework\zf_sfml\textureregion.hpp
+	<SFML/Graphics.hpp>
+	<iostream>
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\z_framework\zf_sfml\mouse.hpp
+	"../zf_common/InputState.hpp"
+	<SFML/Graphics.hpp>
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\z_framework\zf_common\inputstate.hpp
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\resourcepath.hpp
+	<string>
+
+1387345891 source:c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\game\game.cpp
+	"Game.hpp"
+	"screens/Screen.hpp"
+	"screens/GameScreen.hpp"
+	<SFML/Graphics.hpp>
+	"../z_framework/zf_common/f_conversion.hpp"
+	<fstream>
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\game\screens\screen.hpp
+	<SFML/Graphics.hpp>
+	<SFML/Network.hpp>
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\game\screens\gamescreen.hpp
+	"Screen.hpp"
+	"../logic/Board.hpp"
+	"../logic/Inventory.hpp"
+	"../logic/ChipFactory.hpp"
+	"../logic/Player.hpp"
+	"../logic/Shop.hpp"
+	"ChipDetail.hpp"
+	"../../z_framework/zf_sfml/VertexButton.hpp"
+	"../../z_framework/zf_common/InputState.hpp"
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\game\logic\board.hpp
+	<SFML/Graphics.hpp>
+	"../../z_framework/zf_common/TwoDSpace.hpp"
+	"../../z_framework/zf_common/InputState.hpp"
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\z_framework\zf_common\twodspace.hpp
+	"Grid.hpp"
+	<vector>
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\z_framework\zf_common\grid.hpp
+	<cmath>
+	<iostream>
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\game\logic\inventory.hpp
+	"../../z_framework/zf_common/InputState.hpp"
+	"../../z_framework/zf_sfml/VertexButton.hpp"
+	"Chip.hpp"
+	<SFML/Window.hpp>
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\z_framework\zf_sfml\vertexbutton.hpp
+	"Mouse.hpp"
+	<SFML/Graphics.hpp>
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\game\logic\chip.hpp
+	"FactoryOutput.hpp"
+	"ArrowControl.hpp"
+	"../../z_framework/zf_common/Grid.hpp"
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\game\logic\factoryoutput.hpp
+	"../../z_framework/zf_sfml/animations/AnimatableSprite.hpp"
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\z_framework\zf_sfml\animations\animatablesprite.hpp
+	<SFML/Graphics.hpp>
+	"AnimationComponent.hpp"
+	"iAnimatable.hpp"
+	"iAnimationComponentWrapper.hpp"
+	"../iCenterable.hpp"
+	"../iBoundable.hpp"
+	"../f_common.hpp"
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\z_framework\zf_sfml\animations\animationcomponent.hpp
+	<SFML/Graphics.hpp>
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\z_framework\zf_sfml\animations\ianimatable.hpp
+	<SFML/Graphics.hpp>
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\z_framework\zf_sfml\animations\ianimationcomponentwrapper.hpp
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\z_framework\zf_sfml\icenterable.hpp
+	<SFML/Graphics.hpp>
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\z_framework\zf_sfml\iboundable.hpp
+	<SFML/Graphics.hpp>
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\z_framework\zf_sfml\f_common.hpp
+	"AlignmentData.hpp"
+	"iBoundable.hpp"
+	"../zf_common/Grid.hpp"
+	<SFML/Graphics.hpp>
+	<vector>
+	<iostream>
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\z_framework\zf_sfml\alignmentdata.hpp
+	"../zf_common/Alignment.hpp"
+	<SFML/System.hpp>
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\z_framework\zf_common\alignment.hpp
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\game\logic\arrowcontrol.hpp
+	<SFML/Graphics.hpp>
+	"../../z_framework/zf_common/Direction.hpp"
+	"../Game.hpp"
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\z_framework\zf_common\direction.hpp
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\game\logic\chipfactory.hpp
+	"Chip.hpp"
+	"Collector.hpp"
+	"Combiner.hpp"
+	"Connector.hpp"
+	"Factory.hpp"
+	"Multiplier.hpp"
+	"PowerStation.hpp"
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\game\logic\collector.hpp
+	"Chip.hpp"
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\game\logic\combiner.hpp
+	"Chip.hpp"
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\game\logic\connector.hpp
+	"Chip.hpp"
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\game\logic\factory.hpp
+	"Chip.hpp"
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\game\logic\multiplier.hpp
+	"Chip.hpp"
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\game\logic\powerstation.hpp
+	"Chip.hpp"
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\game\logic\player.hpp
+	<SFML/Graphics.hpp>
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\game\logic\shop.hpp
+	<SFML/Graphics.hpp>
+	"../../z_framework/zf_sfml/VertexButton.hpp"
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\game\screens\chipdetail.hpp
+	<SFML/Graphics.hpp>
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\z_framework\zf_common\f_conversion.hpp
+	<iostream>
+	<sstream>
+	<vector>
+	<string>
+
+1387345891 source:c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\game\logic\arrowcontrol.cpp
+	"ArrowControl.hpp"
+	"../../z_framework/zf_sfml/f_common.hpp"
+
+1387345891 source:c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\game\logic\board.cpp
+	"Board.hpp"
+	"../Game.hpp"
+	"Chip.hpp"
+	"FactoryOutput.hpp"
+	"../../z_framework/zf_common/f_inputs.hpp"
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\z_framework\zf_common\f_inputs.hpp
+	"InputState.hpp"
+
+1387345891 source:c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\game\logic\chip.cpp
+	"Chip.hpp"
+	"Board.hpp"
+	"../Game.hpp"
+	"../../z_framework/zf_sfml/f_common.hpp"
+	"../../z_framework/zf_common/f_conversion.hpp"
+
+1387345891 source:c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\game\logic\chipfactory.cpp
+	"ChipFactory.hpp"
+
+1387345891 source:c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\game\logic\collector.cpp
+	"Collector.hpp"
+	"Board.hpp"
+
+1387345891 source:c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\game\logic\combiner.cpp
+	"Combiner.hpp"
+	"Board.hpp"
+
+1387345891 source:c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\game\logic\connector.cpp
+	"Connector.hpp"
+	"Board.hpp"
+	"../../z_framework/zf_common/f_conversion.hpp"
+	"../../z_framework/zf_sfml/f_common.hpp"
+
+1387345891 source:c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\game\logic\factory.cpp
+	"Factory.hpp"
+	"Board.hpp"
+
+1387345891 source:c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\game\logic\factoryoutput.cpp
+	"FactoryOutput.hpp"
+	"../../z_framework/zf_sfml/animations/CompositeInstruction.hpp"
+	"../Game.hpp"
+	"../../z_framework/zf_sfml/f_common.hpp"
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\z_framework\zf_sfml\animations\compositeinstruction.hpp
+	"AnimationInstruction.hpp"
+	<vector>
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\z_framework\zf_sfml\animations\animationinstruction.hpp
+	<SFML/Graphics.hpp>
+
+1387345891 source:c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\game\logic\inventory.cpp
+	"Inventory.hpp"
+	"PowerStation.hpp"
+	"../../z_framework/zf_common/f_inputs.hpp"
+
+1387345891 source:c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\game\logic\multiplier.cpp
+	"Multiplier.hpp"
+	"Board.hpp"
+
+1387345891 source:c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\game\logic\player.cpp
+	"Player.hpp"
+	"FactoryOutput.hpp"
+	"../Game.hpp"
+	"../../z_framework/zf_sfml/f_common.hpp"
+	"../../z_framework/zf_common/f_conversion.hpp"
+
+1387345891 source:c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\game\logic\powerstation.cpp
+	"PowerStation.hpp"
+	"Board.hpp"
+	"../../z_framework/zf_sfml/f_common.hpp"
+
+1387345891 source:c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\game\logic\shop.cpp
+	"../Game.hpp"
+	"Player.hpp"
+	"Shop.hpp"
+	"../screens/GameScreen.hpp"
+	"../../z_framework/zf_sfml/f_common.hpp"
+	"../../z_framework/zf_common/f_conversion.hpp"
+
+1387345891 source:c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\game\screens\chipdetail.cpp
+	"ChipDetail.hpp"
+	"../logic/FactoryOutput.hpp"
+	"../logic/Chip.hpp"
+	"../Game.hpp"
+
+1387345891 source:c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\game\screens\gamescreen.cpp
+	"GameScreen.hpp"
+	"../Game.hpp"
+	"../../z_framework/zf_common/f_inputs.hpp"
+
+1387345891 source:c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\game\screens\screen.cpp
+	"Screen.hpp"
+	"../Game.hpp"
+
+1387345891 source:c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\main.cpp
+	<stdlib.h>
+	<time.h>
+	"game/Game.hpp"
+
+1387345891 source:c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\z_framework\zf_common\common_f_debug.cpp
+	"f_debug.hpp"
+
+1387345891 c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\z_framework\zf_common\f_debug.hpp
+	"Grid.hpp"
+	<iostream>
+	<string>
+
+1387345891 source:c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\z_framework\zf_common\debugging.cpp
+
+1387345891 source:c:\users\zwodahs\desktop\pixelfactoryupdated\pixelfactory\z_framework\zf_common\f_conversion.cpp
+	"f_conversion.hpp"
+
